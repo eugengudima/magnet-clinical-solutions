@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "magnet-clinical-solutions",
+  "compatibility_date": "2026-05-09",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "suggestion-1"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
