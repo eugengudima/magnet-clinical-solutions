@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnet Clinical Solutions — S5 Bold Editorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --white: #f8f7f4;
+      --red: #e02020;
+      --gray: #8a8a8a;
+      --light: #f0efeb;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    h1,h2 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; line-height: 0.95; }
+    h1 { font-size: clamp(4rem,10vw,9rem); }
+    h2 { font-size: clamp(2.8rem,6vw,5.5rem); }
+    h3 { font-size: 1.1rem; font-weight: 600; }
+    p { color: var(--gray); font-size: 0.95rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white); border-bottom: 2px solid var(--black);
+      padding: 1rem 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta { padding: 0.55rem 1.4rem; background: var(--red); color: white; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero { padding: 9rem 0 5rem; border-bottom: 2px solid var(--black); }
+    .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+    .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); border: 1.5px solid var(--red); padding: 0.35rem 0.8rem; }
+    .hero-year { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
+    .hero-title { margin-bottom: 2rem; }
+    .hero-title .accent { color: var(--red); }
+    .hero-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+    .hero-desc { font-size: 1.05rem; max-width: 440px; margin-bottom: 2rem; }
+    .btn-black { display: inline-block; padding: 0.9rem 2.5rem; background: var(--black); color: var(--white); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; transition: background 0.2s; }
+    .btn-black:hover { background: var(--red); }
+    .hero-stats { display: flex; gap: 3rem; justify-content: flex-end; }
+    .h-stat { text-align: right; }
+    .h-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1; color: var(--black); }
+    .h-stat .lbl { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+
+    /* TICKER */
+    .ticker { background: var(--black); color: var(--white); padding: 0.75rem 0; overflow: hidden; }
+    .ticker-track { display: flex; gap: 4rem; white-space: nowrap; animation: ticker 20s linear infinite; }
+    .ticker-item { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+    .ticker-dot { color: var(--red); }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* UNIQUE FEATURE: HORIZONTAL SCROLL SERVICES */
+    .services { padding: 7rem 0 0; }
+    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .services-header h2 { }
+    .scroll-hint { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); display: flex; align-items: center; gap: 0.5rem; }
+    .scroll-hint::after { content: '→'; }
+    .h-scroll-outer { overflow-x: auto; padding-bottom: 2rem; cursor: grab; }
+    .h-scroll-outer:active { cursor: grabbing; }
+    .h-scroll-outer::-webkit-scrollbar { height: 3px; }
+    .h-scroll-outer::-webkit-scrollbar-track { background: var(--light); }
+    .h-scroll-outer::-webkit-scrollbar-thumb { background: var(--black); }
+    .h-scroll-inner { display: flex; gap: 0; width: max-content; border: 2px solid var(--black); }
+    .svc-card {
+      width: 320px; min-height: 400px;
+      padding: 3rem 2.5rem;
+      border-right: 2px solid var(--black);
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: background 0.25s;
+    }
+    .svc-card:last-child { border-right: none; }
+    .svc-card:hover { background: var(--black); }
+    .svc-card:hover h3,
+    .svc-card:hover .svc-desc { color: var(--white); }
+    .svc-card:hover .svc-num { color: var(--red); }
+    .svc-card:hover .svc-arrow { background: var(--red); color: var(--white); }
+    .svc-num { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: var(--light); line-height: 1; margin-bottom: 1.5rem; transition: color 0.25s; }
+    .svc-card h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+    .svc-desc { font-size: 0.88rem; flex-grow: 1; }
+    .svc-arrow { width: 40px; height: 40px; background: var(--light); display: flex; align-items: center; justify-content: center; margin-top: 2rem; font-size: 1.2rem; transition: all 0.25s; }
+
+    /* ABOUT */
+    .about { padding: 7rem 0; background: var(--black); color: var(--white); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about h2 { color: var(--white); margin-bottom: 1.5rem; }
+    .about .accent { color: var(--red); }
+    .about p { color: rgba(255,255,255,0.55); margin-bottom: 1rem; }
+    .about-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .about-list li { display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    .about-list li::before { content: '//'; color: var(--red); font-weight: 700; font-size: 0.85rem; }
+    .about-visual { border: 2px solid rgba(255,255,255,0.08); aspect-ratio: 1; max-height: 440px; display: flex; align-items: center; justify-content: center; font-size: 8rem; opacity: 0.1; }
+    .btn-red { display: inline-block; margin-top: 2.5rem; padding: 0.9rem 2.5rem; background: var(--red); color: var(--white); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; transition: opacity 0.2s; }
+    .btn-red:hover { opacity: 0.85; }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 7rem 0; border-top: 2px solid var(--black); }
+    .test-header { margin-bottom: 3.5rem; }
+    .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 2px solid var(--black); }
+    .test-card { padding: 2.5rem; border-right: 2px solid var(--black); }
+    .test-card:last-child { border-right: none; }
+    .test-card p { font-style: italic; font-size: 0.95rem; margin-bottom: 1.5rem; color: var(--black); }
+    .test-author { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+    .test-role { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+
+    /* CTA */
+    .cta { padding: 7rem 0; text-align: center; background: var(--red); }
+    .cta h2 { color: var(--white); margin-bottom: 1rem; }
+    .cta p { color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; }
+    .btn-white { display: inline-block; padding: 0.9rem 2.5rem; background: var(--white); color: var(--red); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; transition: opacity 0.2s; }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* FOOTER */
+    footer { padding: 2rem 0; border-top: 2px solid var(--black); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-inner p { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); }
+
+    @media(max-width:900px){
+      .hero-bottom,.about-inner{ grid-template-columns:1fr; gap:3rem; }
+      .test-grid{ grid-template-columns:1fr; }
+      .test-card{ border-right:none; border-bottom:2px solid var(--black); }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-logo">Magnet Clinical</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <a href="#" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-top">
+        <div class="hero-tag">Clinical Research · Moldova</div>
+        <div class="hero-year">Est. 2026</div>
+      </div>
+      <div class="hero-title">
+        <h1>MAGNET<br><span class="accent">CLINICAL</span><br>SOLUTIONS</h1>
+      </div>
+      <div class="hero-bottom">
+        <div>
+          <p class="hero-desc">Internationally certified auditing, accredited training, CRO services, and patient recruitment for the pharmaceutical industry in Moldova.</p>
+          <a href="#" class="btn-black">Explore Services</a>
+        </div>
+        <div class="hero-stats">
+          <div class="h-stat"><div class="num">4</div><div class="lbl">Services</div></div>
+          <div class="h-stat"><div class="num">5</div><div class="lbl">Domains</div></div>
+          <div class="h-stat"><div class="num">3</div><div class="lbl">Regions</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker">
+    <div class="ticker-track" id="tickerTrack">
+      <span class="ticker-item">Clinical Auditing <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Training Platform <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">CRO Services <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Patient Recruitment <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">GCP Compliance <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Republic of Moldova <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">International Standards <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Clinical Auditing <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Training Platform <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">CRO Services <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Patient Recruitment <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">GCP Compliance <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Republic of Moldova <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">International Standards <span class="ticker-dot">◆</span></span>
+    </div>
+  </div>
+
+  <!-- UNIQUE FEATURE: HORIZONTAL SCROLL SERVICES -->
+  <section class="services">
+    <div class="container">
+      <div class="services-header">
+        <h2>OUR SERVICES</h2>
+        <div class="scroll-hint">Scroll to explore</div>
+      </div>
+    </div>
+    <div class="h-scroll-outer" id="hScroll">
+      <div class="h-scroll-inner" style="margin-left:max(2rem, calc((100vw - 1200px)/2 + 2rem));">
+        <div class="svc-card">
+          <div>
+            <div class="svc-num">01</div>
+            <h3>Clinical Study Auditing</h3>
+            <p class="svc-desc">Internationally certified audits, comprehensive reporting, GCP-compliant methodology under contract.</p>
+          </div>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="svc-card">
+          <div>
+            <div class="svc-num">02</div>
+            <h3>Training Platform</h3>
+            <p class="svc-desc">Ministry of Education certified courses across five pharmaceutical and clinical domains.</p>
+          </div>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="svc-card">
+          <div>
+            <div class="svc-num">03</div>
+            <h3>Contract Research Org.</h3>
+            <p class="svc-desc">Full CRO — authorization to protocol execution for international sponsors entering Moldova.</p>
+          </div>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="svc-card">
+          <div>
+            <div class="svc-num">04</div>
+            <h3>Patient Recruitment</h3>
+            <p class="svc-desc">Connecting sponsors with Moldova's untapped regional patient pools — north, south, Gagauzia.</p>
+          </div>
+          <div class="svc-arrow">→</div>
+        </div>
+        <div class="svc-card" style="background:var(--red);border-color:var(--red);">
+          <div>
+            <div class="svc-num" style="color:rgba(255,255,255,0.2);">?</div>
+            <h3 style="color:white;">Not Sure Which Service?</h3>
+            <p class="svc-desc" style="color:rgba(255,255,255,0.7);">Contact us and we'll guide you to the right solution for your research needs.</p>
+          </div>
+          <div class="svc-arrow" style="background:white;color:var(--red);">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="container">
+      <div class="about-inner">
+        <div>
+          <h2>BUILT ON<br><span class="accent">EXPERTISE</span></h2>
+          <p>Magnet Clinical Solutions was founded by an internationally certified clinical study auditor with a mission to advance pharmaceutical standards across the Republic of Moldova.</p>
+          <p>We combine international certification with deep local market knowledge to deliver results for B2B pharmaceutical partners.</p>
+          <ul class="about-list">
+            <li>Internationally certified clinical auditor</li>
+            <li>Ministry of Education accredited courses</li>
+            <li>Full-service CRO for Moldova</li>
+            <li>Access to 3 regional patient populations</li>
+          </ul>
+          <a href="#" class="btn-red">Our Story</a>
+        </div>
+        <div class="about-visual">M</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <div class="test-header">
+        <h2>WHAT CLIENTS SAY</h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card"><p>"The audit report met all regulatory requirements without a single revision."</p><div class="test-author">R. Dimitrescu</div><div class="test-role">Clinical Operations Director</div></div>
+        <div class="test-card"><p>"Ministry-accredited certification immediately applied in our compliance workflow."</p><div class="test-author">M. Popescu</div><div class="test-role">Regulatory Affairs Manager</div></div>
+        <div class="test-card"><p>"Patient recruitment in Moldova accelerated our trial timelines significantly."</p><div class="test-author">A. Constantin</div><div class="test-role">EU-based Sponsor</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>READY TO START?</h2>
+      <p>Partner with Magnet Clinical Solutions for your next clinical research initiative.</p>
+      <a href="#" class="btn-white">Contact Us Now</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2026 Magnet Clinical Solutions</p>
+      <p>Republic of Moldova</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== DRAG-TO-SCROLL HORIZONTAL SERVICES ===== */
+    const slider = document.getElementById('hScroll');
+    let isDown = false, startX, scrollLeft;
+
+    slider.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => isDown = false);
+    slider.addEventListener('mouseup', () => isDown = false);
+    slider.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      slider.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
+  </script>
+</body>
+</html>

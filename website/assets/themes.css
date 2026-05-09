@@ -1,0 +1,104 @@
+/* ===== THEME OVERRIDES =====
+   Theme 1 = default (navy/gold, defined in style.css :root)
+   Themes 2-10 override CSS custom properties only.
+   Applied via [data-theme="N"] on <html>.
+*/
+
+/* 2 — Forest & Emerald */
+[data-theme="2"] {
+  --navy:       #1A4731;
+  --navy-dark:  #0f2e1f;
+  --navy-light: #2a6245;
+  --gold:       #34D399;
+  --gold-light: #6EE7B7;
+  --shadow:      0 4px 32px rgba(26,71,49,0.12);
+  --shadow-hover:0 8px 48px rgba(26,71,49,0.22);
+}
+
+/* 3 — Steel & Sky */
+[data-theme="3"] {
+  --navy:       #1E3A5F;
+  --navy-dark:  #112340;
+  --navy-light: #2e527a;
+  --gold:       #38BDF8;
+  --gold-light: #7DD3FC;
+  --shadow:      0 4px 32px rgba(30,58,95,0.12);
+  --shadow-hover:0 8px 48px rgba(30,58,95,0.22);
+}
+
+/* 4 — Burgundy & Champagne */
+[data-theme="4"] {
+  --navy:       #6B1C2F;
+  --navy-dark:  #481220;
+  --navy-light: #8a2840;
+  --gold:       #D4B483;
+  --gold-light: #E8CFA0;
+  --shadow:      0 4px 32px rgba(107,28,47,0.12);
+  --shadow-hover:0 8px 48px rgba(107,28,47,0.22);
+}
+
+/* 5 — Charcoal & Teal */
+[data-theme="5"] {
+  --navy:       #1C2B2B;
+  --navy-dark:  #0f1a1a;
+  --navy-light: #2a3e3e;
+  --gold:       #14B8A6;
+  --gold-light: #2DD4BF;
+  --shadow:      0 4px 32px rgba(28,43,43,0.14);
+  --shadow-hover:0 8px 48px rgba(28,43,43,0.24);
+}
+
+/* 6 — Midnight & Coral */
+[data-theme="6"] {
+  --navy:       #1a2535;
+  --navy-dark:  #0d1520;
+  --navy-light: #253548;
+  --gold:       #F4845F;
+  --gold-light: #FCA58A;
+  --shadow:      0 4px 32px rgba(26,37,53,0.14);
+  --shadow-hover:0 8px 48px rgba(26,37,53,0.24);
+}
+
+/* 7 — Olive & Amber */
+[data-theme="7"] {
+  --navy:       #3B4A1E;
+  --navy-dark:  #252e12;
+  --navy-light: #4e6228;
+  --gold:       #D4A017;
+  --gold-light: #E8B824;
+  --shadow:      0 4px 32px rgba(59,74,30,0.12);
+  --shadow-hover:0 8px 48px rgba(59,74,30,0.22);
+}
+
+/* 8 — Plum & Rose */
+[data-theme="8"] {
+  --navy:       #3D1A5C;
+  --navy-dark:  #270d3e;
+  --navy-light: #562680;
+  --gold:       #E879A0;
+  --gold-light: #F4A7C1;
+  --shadow:      0 4px 32px rgba(61,26,92,0.14);
+  --shadow-hover:0 8px 48px rgba(61,26,92,0.24);
+}
+
+/* 9 — Dark Teal & Lime */
+[data-theme="9"] {
+  --navy:       #134E4A;
+  --navy-dark:  #0a302d;
+  --navy-light: #1a6b65;
+  --gold:       #84CC16;
+  --gold-light: #A3E635;
+  --shadow:      0 4px 32px rgba(19,78,74,0.12);
+  --shadow-hover:0 8px 48px rgba(19,78,74,0.22);
+}
+
+/* 10 — Carbon & Amber */
+[data-theme="10"] {
+  --navy:       #1C1C1E;
+  --navy-dark:  #0a0a0b;
+  --navy-light: #2c2c2e;
+  --gold:       #F59E0B;
+  --gold-light: #FCD34D;
+  --shadow:      0 4px 32px rgba(28,28,30,0.18);
+  --shadow-hover:0 8px 48px rgba(28,28,30,0.30);
+}
