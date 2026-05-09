@@ -194,6 +194,7 @@
   }
 
   function init() {
+    if (window.self !== window.top) return; // inside picker iframe — no floating button
     injectStyles();
     buildUI();
     const saved = localStorage.getItem(STORAGE_KEY) || '1';

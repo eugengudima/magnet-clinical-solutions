@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Style — Magnet Clinical Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      background: #eef0f7;
+    }
+
+    /* ===== SIDEBAR ===== */
+    #sidebar {
+      width: 230px;
+      min-width: 230px;
+      background: #fff;
+      box-shadow: 2px 0 24px rgba(27,42,107,0.10);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    #sidebar-top {
+      padding: 1.4rem 1.2rem 1rem;
+      border-bottom: 1px solid #eef0f7;
+    }
+
+    #sidebar-top .label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8a92b2;
+      margin-bottom: 0.4rem;
+    }
+
+    #sidebar-top h1 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1f3c;
+      margin-bottom: 0.5rem;
+    }
+
+    #sidebar-top p {
+      font-size: 0.78rem;
+      color: #6a7099;
+      line-height: 1.5;
+    }
+
+    #theme-list {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+      position: relative;
+    }
+
+    .theme-btn:hover { background: #f4f5fb; }
+
+    .theme-btn.active {
+      background: #f0f2fb;
+      border-color: #1B2A6B;
+    }
+
+    .theme-swatch {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      border-radius: 7px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    .swatch-primary { flex: 1; }
+    .swatch-accent  { height: 9px; }
+
+    .theme-info { flex: 1; min-width: 0; }
+
+    .theme-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #8a92b2;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .theme-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #1a1f3c;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .theme-check {
+      font-size: 0.75rem;
+      color: #1B2A6B;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .theme-btn.active .theme-check { opacity: 1; }
+
+    #sidebar-footer {
+      padding: 1rem 1.2rem 1.4rem;
+      border-top: 1px solid #eef0f7;
+    }
+
+    #sidebar-footer p {
+      font-size: 0.76rem;
+      color: #8a92b2;
+      line-height: 1.55;
+    }
+
+    #sidebar-footer strong {
+      display: block;
+      font-size: 0.8rem;
+      color: #1a1f3c;
+      margin-bottom: 0.3rem;
+    }
+
+    #current-label {
+      margin-top: 0.75rem;
+      background: #1B2A6B;
+      color: #fff;
+      border-radius: 6px;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* ===== PREVIEW AREA ===== */
+    #preview {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    #loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: #eef0f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    #loading-overlay.show { opacity: 1; pointer-events: all; }
+
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid #d0d4e8;
+      border-top-color: #1B2A6B;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #loading-overlay span {
+      font-size: 0.82rem;
+      color: #8a92b2;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar">
+    <div id="sidebar-top">
+      <div class="label">Magnet Clinical Solutions</div>
+      <h1>Pick your style</h1>
+      <p>Click each number to preview the full site in that style. Tell Eugen which one you want!</p>
+    </div>
+
+    <div id="theme-list"></div>
+
+    <div id="sidebar-footer">
+      <strong>How to choose</strong>
+      <p>Browse through all 10 styles — they all look great on every page. Just send Eugen the number of your favourite.</p>
+      <div id="current-label">Current: Style 1</div>
+    </div>
+  </div>
+
+  <div id="preview">
+    <div id="loading-overlay">
+      <div class="spinner"></div>
+      <span>Loading preview…</span>
+    </div>
+    <iframe id="frame" src="index.html" title="Website preview"></iframe>
+  </div>
+
+  <script>
+    const THEMES = [
+      { id: 1,  name: 'Navy & Gold',          primary: '#1B2A6B', accent: '#C9A84C' },
+      { id: 2,  name: 'Forest & Emerald',     primary: '#1A4731', accent: '#34D399' },
+      { id: 3,  name: 'Steel & Sky',          primary: '#1E3A5F', accent: '#38BDF8' },
+      { id: 4,  name: 'Burgundy & Champagne', primary: '#6B1C2F', accent: '#D4B483' },
+      { id: 5,  name: 'Charcoal & Teal',      primary: '#1C2B2B', accent: '#14B8A6' },
+      { id: 6,  name: 'Midnight & Coral',     primary: '#1a2535', accent: '#F4845F' },
+      { id: 7,  name: 'Olive & Amber',        primary: '#3B4A1E', accent: '#D4A017' },
+      { id: 8,  name: 'Plum & Rose',          primary: '#3D1A5C', accent: '#E879A0' },
+      { id: 9,  name: 'Dark Teal & Lime',     primary: '#134E4A', accent: '#84CC16' },
+      { id: 10, name: 'Carbon & Amber',       primary: '#1C1C1E', accent: '#F59E0B' },
+    ];
+
+    const STORAGE_KEY = 'mcs-theme';
+    const frame = document.getElementById('frame');
+    const overlay = document.getElementById('loading-overlay');
+    const currentLabel = document.getElementById('current-label');
+    const list = document.getElementById('theme-list');
+
+    let active = 1;
+
+    function applyTheme(id) {
+      active = id;
+      localStorage.setItem(STORAGE_KEY, String(id));
+
+      // Update sidebar
+      document.querySelectorAll('.theme-btn').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.id) === id);
+      });
+      currentLabel.textContent = `Current: Style ${id}`;
+
+      // Apply directly into iframe DOM — instant, no reload
+      try {
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        if (id === 1) {
+          doc.documentElement.removeAttribute('data-theme');
+        } else {
+          doc.documentElement.setAttribute('data-theme', String(id));
+        }
+      } catch (e) {
+        // Same-origin should never fail, but fallback to reload
+        overlay.classList.add('show');
+        frame.src = 'index.html';
+      }
+    }
+
+    frame.addEventListener('load', () => {
+      overlay.classList.remove('show');
+      // Re-apply active theme after any navigation inside the iframe
+      try {
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        if (active !== 1) {
+          doc.documentElement.setAttribute('data-theme', String(active));
+        }
+      } catch (e) {}
+    });
+
+    // Build buttons
+    THEMES.forEach(t => {
+      const btn = document.createElement('button');
+      btn.className = 'theme-btn' + (t.id === 1 ? ' active' : '');
+      btn.dataset.id = t.id;
+      btn.innerHTML = `
+        <div class="theme-swatch">
+          <div class="swatch-primary" style="background:${t.primary}"></div>
+          <div class="swatch-accent"  style="background:${t.accent}"></div>
+        </div>
+        <div class="theme-info">
+          <div class="theme-num">STYLE ${t.id}</div>
+          <div class="theme-name">${t.name}</div>
+        </div>
+        <span class="theme-check">✓</span>
+      `;
+      btn.addEventListener('click', () => applyTheme(t.id));
+      list.appendChild(btn);
+    });
+
+    // Reset to style 1 on picker load
+    localStorage.setItem(STORAGE_KEY, '1');
+  </script>
+</body>
+</html>
