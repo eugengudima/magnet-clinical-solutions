@@ -35,8 +35,8 @@
         bottom: 1.5rem;
         right: 1.5rem;
         z-index: 9999;
-        background: var(--navy-dark);
-        color: #fff;
+        background: #C9A84C;
+        color: #101d52;
         border: none;
         border-radius: 100px;
         padding: 0.6rem 1.1rem;
