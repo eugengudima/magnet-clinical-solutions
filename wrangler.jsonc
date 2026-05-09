@@ -6,7 +6,7 @@
     "enabled": true
   },
   "assets": {
-    "directory": "suggestion-1"
+    "directory": "website"
   },
   "compatibility_flags": [
     "nodejs_compat"
