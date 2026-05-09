@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnet Clinical Solutions — S4 Medical Green</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #00875A;
+      --green-light: #00A870;
+      --green-pale: #e6f7f2;
+      --navy: #0a2540;
+      --bg: #ffffff;
+      --bg2: #f4faf8;
+      --text: #0a2540;
+      --muted: #5f7d8a;
+      --border: #e0ede9;
+      --shadow: 0 2px 24px rgba(0,135,90,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+    h1,h2,h3 { font-family: 'DM Serif Display', serif; line-height: 1.2; }
+    h1 { font-size: clamp(2.5rem,5vw,4.2rem); }
+    h2 { font-size: clamp(1.8rem,3.5vw,2.8rem); }
+    h3 { font-size: 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    p { color: var(--muted); }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo-icon { width: 36px; height: 36px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1rem; }
+    .nav-logo-text { font-weight: 700; font-size: 0.92rem; line-height: 1.2; }
+    .nav-logo-text span { display: block; font-weight: 400; font-size: 0.75rem; color: var(--muted); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { padding: 0.6rem 1.5rem; background: var(--green); color: white; font-size: 0.88rem; font-weight: 600; border-radius: 6px; transition: background 0.3s; }
+    .nav-cta:hover { background: var(--green-light); }
+
+    /* HERO */
+    .hero {
+      padding: 10rem 0 6rem;
+      background: linear-gradient(160deg, var(--bg2) 0%, var(--bg) 60%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute;
+      top: -10%; right: -5%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,135,90,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green-pale); color: var(--green); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+    .hero h1 { margin-bottom: 1.2rem; color: var(--navy); }
+    .hero h1 em { font-style: normal; color: var(--green); }
+    .hero p { margin-bottom: 2.5rem; font-size: 1.05rem; max-width: 480px; }
+    .hero-btns { display: flex; gap: 1rem; }
+    .btn-green { padding: 0.85rem 2rem; background: var(--green); color: white; font-weight: 600; font-size: 0.92rem; border-radius: 6px; border: none; cursor: pointer; transition: all 0.3s; }
+    .btn-green:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,135,90,0.25); }
+    .btn-line { padding: 0.85rem 2rem; background: none; border: 1.5px solid var(--border); color: var(--text); font-size: 0.92rem; border-radius: 6px; cursor: pointer; transition: border-color 0.3s; }
+    .btn-line:hover { border-color: var(--green); }
+
+    /* UNIQUE FEATURE: SVG ANIMATED STAT RINGS */
+    .stats-section { padding: 6rem 0; background: var(--navy); }
+    .stats-header { text-align: center; margin-bottom: 4rem; }
+    .stats-header h2 { color: white; margin-bottom: 0.75rem; }
+    .stats-header p { color: rgba(255,255,255,0.55); }
+    .rings-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
+    .ring-item { text-align: center; }
+    .ring-svg { display: block; margin: 0 auto 1.2rem; }
+    .ring-bg { fill: none; stroke: rgba(255,255,255,0.08); }
+    .ring-fill { fill: none; stroke: var(--green); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 60px 60px; transition: stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1); }
+    .ring-text { font-family: 'DM Serif Display', serif; font-size: 1.6rem; fill: white; text-anchor: middle; dominant-baseline: middle; }
+    .ring-label { font-size: 0.82rem; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* SERVICES */
+    .services { padding: 7rem 0; }
+    .sec-tag { display: inline-block; background: var(--green-pale); color: var(--green); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 4px; margin-bottom: 1rem; }
+    .sec-header { margin-bottom: 3.5rem; }
+    .sec-header h2 { max-width: 520px; margin-top: 0.5rem; }
+    .svc-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2rem; }
+    .svc-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 2.5rem; transition: all 0.3s; position: relative; overflow: hidden; }
+    .svc-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+    .svc-card:hover { border-color: transparent; box-shadow: var(--shadow); transform: translateY(-4px); }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-num { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--green-pale); line-height: 1; margin-bottom: 1rem; }
+    .svc-card h3 { margin-bottom: 0.75rem; }
+    .svc-card p { font-size: 0.92rem; }
+
+    /* ABOUT */
+    .about { padding: 7rem 0; background: var(--bg2); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-visual {
+      aspect-ratio: 4/5; max-height: 500px;
+      background: var(--green); border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; opacity: 0.3;
+      position: relative; overflow: hidden;
+    }
+    .about-visual::before {
+      content: ''; position: absolute;
+      top: -20%; right: -20%;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .about-text h2 { margin-bottom: 1.2rem; }
+    .about-text p { margin-bottom: 1rem; }
+    .about-pills { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+    .about-pill { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: white; border-radius: 8px; border: 1px solid var(--border); }
+    .about-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); min-width: 8px; }
+    .about-pill span { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 7rem 0; }
+    .test-header { text-align: center; margin-bottom: 3.5rem; }
+    .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .test-card { background: var(--bg2); border-radius: 12px; padding: 2rem; border: 1px solid var(--border); transition: box-shadow 0.3s; }
+    .test-card:hover { box-shadow: var(--shadow); }
+    .test-stars { color: var(--green); font-size: 0.9rem; margin-bottom: 1rem; }
+    .test-card p { font-style: italic; font-size: 0.93rem; margin-bottom: 1.5rem; }
+    .test-author { font-weight: 600; font-size: 0.85rem; color: var(--text); }
+    .test-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* CTA */
+    .cta { padding: 6rem 0; background: var(--green); color: white; text-align: center; }
+    .cta h2 { color: white; margin-bottom: 1rem; }
+    .cta p { color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; }
+    .btn-white { padding: 0.9rem 2.2rem; background: white; color: var(--green); font-weight: 700; font-size: 0.92rem; border-radius: 6px; border: none; cursor: pointer; transition: transform 0.3s; }
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { padding: 2.5rem 0; border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-inner p { font-size: 0.82rem; }
+
+    @media(max-width:900px){
+      .hero-inner,.about-inner{ grid-template-columns:1fr; gap:3rem; }
+      .svc-grid,.test-grid{ grid-template-columns:1fr; }
+      .rings-grid{ grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">M</div>
+        <div class="nav-logo-text">Magnet Clinical Solutions<span>Republic of Moldova</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+      <a href="#" class="nav-cta">Contact Us</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-tag">🏥 Pharmaceutical · B2B · Moldova</div>
+          <h1>Clinical Research, <em>Done Right</em></h1>
+          <p>Internationally certified auditing, Ministry-accredited training, full CRO services and patient recruitment — all under one roof in Moldova.</p>
+          <div class="hero-btns">
+            <a href="#" class="btn-green">Our Services</a>
+            <a href="#" class="btn-line">About Us</a>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <div style="background:var(--green-pale);border-radius:16px;aspect-ratio:1;max-height:440px;display:flex;align-items:center;justify-content:center;font-size:7rem;opacity:0.4;">🧬</div>
+          <div style="position:absolute;bottom:-1rem;left:-1.5rem;background:white;border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;box-shadow:var(--shadow);">
+            <div style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy)">ISO</div>
+            <div style="font-size:0.75rem;color:var(--muted)">GCP Certified Auditing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIQUE FEATURE: ANIMATED SVG STAT RINGS -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-header">
+        <h2>By the Numbers</h2>
+        <p>Measurable expertise across every dimension of clinical research.</p>
+      </div>
+      <div class="rings-grid">
+        <div class="ring-item">
+          <svg class="ring-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" stroke-width="8"/>
+            <circle class="ring-fill" id="ring1" cx="60" cy="60" r="52" stroke-width="8" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            <text class="ring-text" x="60" y="60">4</text>
+          </svg>
+          <div class="ring-label">Service Directions</div>
+        </div>
+        <div class="ring-item">
+          <svg class="ring-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" stroke-width="8"/>
+            <circle class="ring-fill" id="ring2" cx="60" cy="60" r="52" stroke-width="8" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            <text class="ring-text" x="60" y="60">5</text>
+          </svg>
+          <div class="ring-label">Training Domains</div>
+        </div>
+        <div class="ring-item">
+          <svg class="ring-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" stroke-width="8"/>
+            <circle class="ring-fill" id="ring3" cx="60" cy="60" r="52" stroke-width="8" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            <text class="ring-text" x="60" y="60">3</text>
+          </svg>
+          <div class="ring-label">Regions Covered</div>
+        </div>
+        <div class="ring-item">
+          <svg class="ring-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52" stroke-width="8"/>
+            <circle class="ring-fill" id="ring4" cx="60" cy="60" r="52" stroke-width="8" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            <text class="ring-text" x="60" y="60">1</text>
+          </svg>
+          <div class="ring-label">Intl. Certified Auditor</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-tag">Our Services</span>
+        <h2>Four Directions of Clinical Excellence</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div class="svc-num">01</div>
+          <h3>Clinical Study Auditing</h3>
+          <p>Internationally certified audits with comprehensive reporting. Contract-based, GCP-compliant methodology.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-num">02</div>
+          <h3>Training Platform</h3>
+          <p>Five certified domains: clinical studies, doctor authorization, pharmacovigilance, medical availability, GVP.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-num">03</div>
+          <h3>Contract Research Organization</h3>
+          <p>Full-service CRO — authorization, site contracting, patient recruitment, and protocol execution.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-num">04</div>
+          <h3>Patient Recruitment Platform</h3>
+          <p>Access to Moldova's north, south, and Gagauzia populations for diverse clinical trial needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-visual">🏥</div>
+        <div class="about-text">
+          <span class="sec-tag">About Us</span>
+          <h2>Rooted in Moldova, Built on International Standards</h2>
+          <p>Magnet Clinical Solutions was founded by an internationally certified clinical study auditor with a clear mission: bring world-class pharmaceutical standards to an emerging and underserved market.</p>
+          <p>We partner with pharmaceutical companies, sponsors, and medical professionals to advance clinical research in the Republic of Moldova.</p>
+          <div class="about-pills">
+            <div class="about-pill"><div class="dot"></div><span>International clinical study audit certification</span></div>
+            <div class="about-pill"><div class="dot"></div><span>Ministry of Education accredited training platform</span></div>
+            <div class="about-pill"><div class="dot"></div><span>B2B focus — serving pharma companies & sponsors</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <div class="test-header">
+        <span class="sec-tag">Testimonials</span>
+        <h2 style="margin-top:.75rem;">Trusted by Professionals</h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card"><div class="test-stars">★★★★★</div><p>"The audit report was thorough and met all regulatory requirements without revision."</p><div class="test-author">R. Dimitrescu</div><div class="test-role">Clinical Operations Director</div></div>
+        <div class="test-card"><div class="test-stars">★★★★★</div><p>"Ministry-accredited certification that our team immediately applied in compliance workflows."</p><div class="test-author">M. Popescu</div><div class="test-role">Regulatory Affairs Manager</div></div>
+        <div class="test-card"><div class="test-stars">★★★★★</div><p>"Patient recruitment in Moldova accelerated our trial timelines significantly."</p><div class="test-author">A. Constantin</div><div class="test-role">EU-based Clinical Sponsor</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Partner with Magnet Clinical Solutions</h2>
+      <p>Let's discuss how we can support your clinical research goals in Moldova.</p>
+      <a href="#" class="btn-white">Get in Touch Today</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2026 Magnet Clinical Solutions · Republic of Moldova</p>
+      <p><a href="mailto:info@magnetclinical.md" style="color:var(--green)">info@magnetclinical.md</a></p>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== ANIMATED SVG RINGS ON SCROLL ===== */
+    const circumference = 2 * Math.PI * 52; // 326.7
+
+    const ringData = [
+      { id: 'ring1', pct: 0.80 },
+      { id: 'ring2', pct: 0.90 },
+      { id: 'ring3', pct: 0.70 },
+      { id: 'ring4', pct: 0.95 },
+    ];
+
+    let animated = false;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !animated) {
+          animated = true;
+          ringData.forEach(d => {
+            const el = document.getElementById(d.id);
+            if (el) {
+              const offset = circumference * (1 - d.pct);
+              el.style.strokeDashoffset = offset;
+            }
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.getElementById('stats');
+    if (statsSection) observer.observe(statsSection);
+  </script>
+</body>
+</html>
