@@ -5,9 +5,14 @@
   "observability": {
     "enabled": true
   },
+  "workers_dev": true,
   "assets": {
     "directory": "website"
   },
+  "routes": [
+    { "pattern": "magnet-clinical-solutions.com", "custom_domain": true, "zone_name": "magnet-clinical-solutions.com" },
+    { "pattern": "www.magnet-clinical-solutions.com", "custom_domain": true, "zone_name": "magnet-clinical-solutions.com" }
+  ],
   "compatibility_flags": [
     "nodejs_compat"
   ]
