@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magnet Clinical Solutions — Clinical Research Excellence</title>
-  <meta name="description" content="Magnet Clinical Solutions offers clinical study auditing, certified training, CRO services, and patient recruitment in the Republic of Moldova.">
+  <meta name="description" content="Clinical study auditing, certified training, CRO services, and patient recruitment in the Republic of Moldova.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/themes.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css">
+  <script>(function(){try{if(localStorage.getItem('mcs_theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -16,7 +17,8 @@
   <nav class="navbar">
     <div class="container navbar-inner">
       <a href="index.html" class="navbar-logo">
-        <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+        <span class="mark"><img src="assets/lm-mono-white.png" alt="Magnet Clinical Solutions logo"></span>
+        <span class="wordmark">Magnet Clinical Solutions</span>
       </a>
       <ul class="navbar-links">
         <li><a href="index.html" class="active">Home</a></li>
@@ -25,105 +27,142 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
       </ul>
-      <button class="navbar-hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
+      <div class="lang-switch" role="group" aria-label="Language / Limbă">
+        <button class="lang-btn" data-lang="en" aria-label="English"><img src="assets/flag-uk.png" alt="English"></button>
+        <button class="lang-btn" data-lang="ro" aria-label="Română"><img src="assets/flag-md.png" alt="Română"></button>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       </button>
+      <button class="navbar-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg-pattern"></div>
-    <div class="hero-grid-overlay"></div>
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span>🏥</span>
-          Republic of Moldova · Clinical Research
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <span class="hero-tag">🌿 Clinical Research · Republic of Moldova</span>
+          <h1>Advancing Clinical Research, <em>Rooted in Moldova</em></h1>
+          <p class="hero-sub">World-class auditing, certified training, contract research, and patient recruitment — bringing international pharmaceutical standards to an emerging market.</p>
+          <div class="hero-actions">
+            <a href="services.html" class="btn btn-primary">Explore Our Services <span class="arrow">&rarr;</span></a>
+            <a href="about.html" class="btn btn-outline">Our Story</a>
+          </div>
         </div>
-        <h1>Advancing Clinical Research in <span>Moldova</span></h1>
-        <p class="hero-subtitle">
-          Magnet Clinical Solutions provides world-class auditing, certified training, contract research, and patient recruitment services to the pharmaceutical industry.
-        </p>
-        <div class="hero-actions">
-          <a href="services.html" class="btn btn-primary">Explore Our Services</a>
-          <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+        <div class="hero-visual reveal right">
+          <div class="hero-photo">
+            <span class="ph-icon">🔬</span>
+            <span class="ph-label">Clinical research imagery</span>
+          </div>
+          <div class="hero-card">
+            <div class="num">4+</div>
+            <div class="lbl">Service Directions</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="hero-stats container">
-      <div class="hero-stats-inner">
-        <div class="stat">
-          <div class="stat-number" data-count="4" data-suffix="+">4+</div>
-          <div class="stat-label">Service Directions</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number" data-count="100" data-suffix="%">100%</div>
-          <div class="stat-label">Certified Expertise</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number" data-count="1" data-suffix="">1</div>
-          <div class="stat-label">Country, Endless Potential</div>
+
+      <div class="stat-row reveal">
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-number" data-count="4" data-suffix="+">4+</div>
+            <div class="stat-label">Service Directions</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" data-count="100" data-suffix="%">100%</div>
+            <div class="stat-label">Certified Expertise</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" data-count="1" data-suffix="">1</div>
+            <div class="stat-label">Country, Endless Potential</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES OVERVIEW -->
+  <!-- RECOGNISED STANDARDS -->
+  <section class="accred">
+    <div class="container reveal">
+      <div class="accred-label">Built on recognised standards</div>
+      <div class="accred-marks">
+        <span class="mark">International Clinical Audit Certification</span>
+        <span class="dot"></span>
+        <span class="mark">ICH&ndash;GCP E6(R2)</span>
+        <span class="dot"></span>
+        <span class="mark">Ministry of Education &middot; Moldova</span>
+        <span class="dot"></span>
+        <span class="mark">Good Pharmacovigilance Practice</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
   <section class="services">
     <div class="container">
-      <div class="services-header fade-up">
+      <div class="section-header reveal">
         <span class="section-label">What We Offer</span>
         <h2>Four Pillars of Clinical Excellence</h2>
         <p>From rigorous auditing to pioneering patient recruitment — we cover every dimension of clinical research.</p>
       </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">🔍</div>
+      <div class="svc-grid">
+        <div class="svc-card reveal">
+          <div class="svc-icon">🔍</div>
           <h3>Clinical Study Auditing</h3>
-          <p>Internationally certified audit services for clinical studies, delivered under contract with a comprehensive audit report.</p>
-          <a href="services.html#audit" class="service-tag">Learn More →</a>
+          <p>Internationally certified audit services delivered under contract, with a comprehensive official audit report.</p>
+          <a href="services.html#audit" class="svc-tag">Learn More →</a>
         </div>
-        <div class="service-card">
-          <div class="service-icon">🎓</div>
+        <div class="svc-card reveal">
+          <div class="svc-icon">🎓</div>
           <h3>Training Platform</h3>
-          <p>Ministry of Education certified courses across five domains: clinical studies, doctor authorization, pharmacovigilance, and more.</p>
-          <a href="services.html#training" class="service-tag">Learn More →</a>
+          <p>Ministry of Education certified courses across five pharmaceutical and clinical domains.</p>
+          <a href="services.html#training" class="svc-tag">Learn More →</a>
         </div>
-        <div class="service-card">
-          <div class="service-icon">🏢</div>
-          <h3>Contract Research Organization</h3>
-          <p>Full-service CRO bringing international clinical studies to Moldova — from authorization to protocol execution.</p>
-          <a href="services.html#cro" class="service-tag">Learn More →</a>
+        <div class="svc-card reveal">
+          <div class="svc-icon">🏢</div>
+          <h3>CRO Services</h3>
+          <p>Full-service contract research bringing international studies to Moldova — authorization to execution.</p>
+          <a href="services.html#cro" class="svc-tag">Learn More →</a>
         </div>
-        <div class="service-card">
-          <div class="service-icon">👥</div>
-          <h3>Patient Recruitment Platform</h3>
-          <p>Connecting pharmaceutical sponsors with Moldova's diverse and largely untapped patient populations for clinical trials.</p>
-          <a href="services.html#recruitment" class="service-tag">Learn More →</a>
+        <div class="svc-card reveal">
+          <div class="svc-icon">👥</div>
+          <h3>Patient Recruitment</h3>
+          <p>Connecting sponsors with Moldova's diverse and largely untapped regional patient populations.</p>
+          <a href="services.html#recruitment" class="svc-tag">Learn More →</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="statement">
+    <div class="container reveal">
+      <div class="rule"></div>
+      <blockquote>Clinical research deserves the same rigour <em>wherever</em> it happens. Magnet exists to bring that standard home &mdash; to Moldova's patients, its doctors, and the sponsors who trust them.</blockquote>
+      <div class="attrib">A note from our founder</div>
     </div>
   </section>
 
   <!-- WHY US -->
   <section class="why-us">
     <div class="container">
-      <div class="why-us-inner">
-        <div class="why-us-visual slide-left">
-          <div class="why-us-card-main">
+      <div class="why-inner">
+        <div class="why-visual reveal left">
+          <div class="why-card-main">
             <h3>Internationally Certified Expertise</h3>
             <p>Our founder holds international certification in clinical study auditing, bringing global standards to Moldovan healthcare and research.</p>
           </div>
-          <div class="why-us-card-floating scale-in">
+          <div class="why-card-float">
             <div class="number">Moldova</div>
             <div class="label">Leading clinical research forward</div>
           </div>
         </div>
-        <div class="why-us-content slide-right">
+        <div class="why-content reveal right">
           <span class="section-label">Why Magnet Clinical Solutions</span>
           <h2>Your Trusted Partner in Clinical Research</h2>
-          <p style="margin: 1rem 0 2rem;">We combine international certification standards with deep local knowledge to deliver results that meet regulatory requirements and drive real outcomes.</p>
+          <p style="margin-top:1rem;">We combine international certification standards with deep local knowledge to deliver results that meet regulatory requirements and drive real outcomes.</p>
           <ul class="why-list">
             <li class="why-item">
               <div class="why-icon">🎯</div>
@@ -152,37 +191,77 @@
     </div>
   </section>
 
+  <!-- PROCESS TIMELINE -->
+  <section class="timeline-section" id="process">
+    <div class="container">
+      <div class="tl-header reveal">
+        <span class="section-label">How We Work</span>
+        <h2>Our Process</h2>
+        <p>A clear, structured approach to every clinical research engagement.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-side copy">
+            <div class="tl-step">Step 01</div>
+            <h3>Initial Consultation</h3>
+            <p>We discuss your research needs, goals, and constraints to identify the right service and scope.</p>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-side empty"></div>
+        </div>
+        <div class="tl-item right">
+          <div class="tl-side empty"></div>
+          <div class="tl-dot"></div>
+          <div class="tl-side copy">
+            <div class="tl-step">Step 02</div>
+            <h3>Proposal &amp; Contract</h3>
+            <p>A detailed proposal is prepared and a clear service contract is established for full transparency.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-side copy">
+            <div class="tl-step">Step 03</div>
+            <h3>Execution</h3>
+            <p>Our team delivers the service — audit, training, study conduct, or recruitment — to the agreed scope.</p>
+          </div>
+          <div class="tl-dot"></div>
+          <div class="tl-side empty"></div>
+        </div>
+        <div class="tl-item right">
+          <div class="tl-side empty"></div>
+          <div class="tl-dot"></div>
+          <div class="tl-side copy">
+            <div class="tl-step">Step 04</div>
+            <h3>Reporting &amp; Follow-Up</h3>
+            <p>Deliverables are presented, findings reviewed, and ongoing support is provided as needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ABOUT STRIP -->
   <section class="about-strip">
     <div class="container">
-      <div class="about-strip-inner">
-        <div class="about-strip-left fade-up">
+      <div class="about-inner">
+        <div class="about-text reveal left">
           <span class="section-label">About the Company</span>
           <h2>Clinical Excellence, Rooted in Moldova</h2>
           <p style="margin-top:1rem;">Magnet Clinical Solutions was founded by an internationally certified clinical research professional with a mission to elevate pharmaceutical standards in the Republic of Moldova and connect the country's vast potential with global clinical research.</p>
           <a href="about.html" class="btn btn-primary" style="margin-top:2rem;">Our Story</a>
         </div>
-        <div class="about-strip-right">
-          <div class="about-pill fade-in">
+        <div class="about-pills reveal right">
+          <div class="about-pill">
             <span class="about-pill-icon">🏅</span>
-            <div class="about-pill-text">
-              <strong>International Certification</strong>
-              Certified auditor in clinical studies with global recognition
-            </div>
+            <div><strong>International Certification</strong><span class="detail">Certified auditor in clinical studies with global recognition</span></div>
           </div>
-          <div class="about-pill fade-in">
+          <div class="about-pill">
             <span class="about-pill-icon">📚</span>
-            <div class="about-pill-text">
-              <strong>Ministry-Accredited Courses</strong>
-              Official certifications recognized in the Republic of Moldova
-            </div>
+            <div><strong>Ministry-Accredited Courses</strong><span class="detail">Official certifications recognized in the Republic of Moldova</span></div>
           </div>
-          <div class="about-pill fade-in">
+          <div class="about-pill">
             <span class="about-pill-icon">🤝</span>
-            <div class="about-pill-text">
-              <strong>B2B Partnerships</strong>
-              Serving pharmaceutical companies, sponsors, and research institutions
-            </div>
+            <div><strong>B2B Partnerships</strong><span class="detail">Serving pharmaceutical companies, sponsors, and research institutions</span></div>
           </div>
         </div>
       </div>
@@ -192,42 +271,33 @@
   <!-- TESTIMONIALS -->
   <section class="testimonials">
     <div class="container">
-      <div class="testimonials-header fade-up">
+      <div class="section-header center reveal">
         <span class="section-label">Client Feedback</span>
         <h2>Trusted by Industry Professionals</h2>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">The audit report delivered by Magnet Clinical Solutions was thorough, professionally structured, and met all our regulatory requirements without a single revision needed.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">RD</div>
-            <div>
-              <div class="testimonial-name">R. Dimitrescu</div>
-              <div class="testimonial-role">Clinical Operations Director, Pharma Partner</div>
-            </div>
+      <div class="tst-grid">
+        <div class="tst-card reveal">
+          <div class="tst-quote">"</div>
+          <p class="tst-text">The audit report delivered by Magnet Clinical Solutions was thorough, professionally structured, and met all our regulatory requirements without a single revision needed.</p>
+          <div class="tst-author">
+            <div class="tst-avatar">RD</div>
+            <div><div class="tst-name">R. Dimitrescu</div><div class="tst-role">Clinical Operations Director</div></div>
           </div>
         </div>
-        <div class="testimonial-card">
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">The pharmacovigilance training was outstanding. Our team received Ministry-accredited certification and immediately applied the knowledge in our compliance workflows.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">MP</div>
-            <div>
-              <div class="testimonial-name">M. Popescu</div>
-              <div class="testimonial-role">Regulatory Affairs Manager</div>
-            </div>
+        <div class="tst-card reveal">
+          <div class="tst-quote">"</div>
+          <p class="tst-text">The pharmacovigilance training was outstanding. Our team received Ministry-accredited certification and immediately applied the knowledge in our compliance workflows.</p>
+          <div class="tst-author">
+            <div class="tst-avatar">MP</div>
+            <div><div class="tst-name">M. Popescu</div><div class="tst-role">Regulatory Affairs Manager</div></div>
           </div>
         </div>
-        <div class="testimonial-card">
-          <div class="testimonial-quote">"</div>
-          <p class="testimonial-text">Recruiting patients in Moldova seemed impossible until we partnered with Magnet. Their access to regional patient populations accelerated our trial timelines significantly.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">AC</div>
-            <div>
-              <div class="testimonial-name">A. Constantin</div>
-              <div class="testimonial-role">Clinical Trial Sponsor, EU-based</div>
-            </div>
+        <div class="tst-card reveal">
+          <div class="tst-quote">"</div>
+          <p class="tst-text">Recruiting patients in Moldova seemed impossible until we partnered with Magnet. Their access to regional patient populations accelerated our trial timelines significantly.</p>
+          <div class="tst-author">
+            <div class="tst-avatar">AC</div>
+            <div><div class="tst-name">A. Constantin</div><div class="tst-role">Clinical Trial Sponsor, EU-based</div></div>
           </div>
         </div>
       </div>
@@ -236,11 +306,11 @@
 
   <!-- CTA -->
   <section class="cta-section">
-    <div class="container fade-up">
-      <span class="section-label" style="color:var(--gold)">Ready to Begin?</span>
+    <div class="container reveal">
+      <span class="section-label">Ready to Begin?</span>
       <h2>Partner with Magnet Clinical Solutions</h2>
       <p>Whether you need an audit, specialized training, a CRO, or patient recruitment — we're ready to support your clinical research goals.</p>
-      <a href="contact.html" class="btn btn-primary">Start a Conversation</a>
+      <a href="contact.html" class="btn btn-primary">Start a Conversation <span class="arrow">&rarr;</span></a>
     </div>
   </section>
 
@@ -249,7 +319,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+          <span class="wordmark"><span class="mark"><img src="assets/lm-mono-white.png" alt="Magnet Clinical Solutions logo"></span>Magnet Clinical Solutions</span>
           <p>Advancing clinical research standards in the Republic of Moldova through expertise, certification, and innovation.</p>
         </div>
         <div class="footer-col">
@@ -279,14 +349,12 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Magnet Clinical Solutions. All rights reserved.</span>
-        <span>Built with precision.</span>
+        <span>Rooted in Moldova.</span>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/i18n.js"></script>
   <script src="assets/main.js"></script>
-  <script src="assets/theme-picker.js"></script>
 </body>
 </html>

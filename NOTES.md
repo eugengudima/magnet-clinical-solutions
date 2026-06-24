@@ -1,7 +1,22 @@
 # NOTES.md — mom's_company
 # Location: /home/eugen/claudehome/projects/mom's_company/NOTES.md
 # Rule: NEVER overwrite — append and update in place
-# Last updated: 2026-05-09
+# Last updated: 2026-06-24
+
+---
+
+- Current live design (as of 2026-06-24): "warm-earth-site"
+  - Supersedes the v1.0 navy/gold theme-picker site (now in website/archive/)
+  - Visual language: cream/sand backgrounds, forest-green primary, gold accent, brown
+    - Fonts: Lora (serif headings) + Nunito Sans (body)
+    - Light + dark mode (persisted in localStorage key mcs_theme)
+  - Bilingual EN/RO (localStorage key mcs_lang); RO = Romanian for the Moldova market
+    - i18n.js holds the EN→RO dictionary and translates by walking text nodes at runtime
+  - Self-contained: no GSAP / CDN JS; scroll reveals via IntersectionObserver
+  - Contact email of record: info@magnetclinical.md
+  - Build/run reproduction contract lives in SPEC.md
+  - Tech-stack note: NOTES originally planned Astro+Tailwind+GSAP; actual implementation is
+    vanilla HTML/CSS/JS (disk-space constraint, see action log 3.1) — kept for the new site too
 
 ---
 
