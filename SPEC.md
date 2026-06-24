@@ -6,8 +6,9 @@
 
 This is the reproduction contract for the **live website** under `website/` (the
 "warm-earth" design). A fresh session given only this file should be able to rebuild a
-behaviourally and visually equivalent site. Archived/older designs (`website/archive/`)
-are out of scope.
+behaviourally and visually equivalent site. Archived/older designs live at the repo-root
+`archive/` (kept in the repo but deliberately OUTSIDE `website/` so they are never deployed)
+and are out of scope here.
 
 ---
 
@@ -38,6 +39,8 @@ website/
 ├── services.html   Services: 4 detail sections with anchors #audit #training #cro #recruitment
 ├── gallery.html    Gallery grid
 ├── contact.html    Contact form + contact details
+│   (website/ holds ONLY shippable files — wrangler deploys this dir verbatim, so nothing
+│    non-public may live inside it; archived work stays at repo-root archive/)
 └── assets/
     ├── theme.css   ALL styling: :root tokens, [data-theme="dark"] overrides, base, components, responsive
     ├── main.js     UI behaviour: navbar scroll state, dark-mode toggle, mobile menu, reveal/timeline/counter observers

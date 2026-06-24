@@ -72,6 +72,13 @@
          Moved: both WhatsApp .ogg/.txt briefs, the hyprshot logo screenshot, the persona infographic (→ persona-infographic.html), and the original design export (→ warm-earth-site-export.zip). Root now holds only website/, library/, logo-variants/, brochure/, source-materials/ + the 3 doc files + wrangler.jsonc.
          Note: wrangler.jsonc still points `assets.directory` at `website` — unchanged, still correct.
 
+7. First Cloudflare deploy of new site + archive moved out of the served dir — 2026-06-24
+   7.1. Deployed `website/` to the Cloudflare Worker `magnet-clinical-solutions` via `npx wrangler deploy`
+         Live at https://magnet-clinical-solutions.eugengudima15.workers.dev (default workers.dev subdomain). Deploy is manual — no CI/git-integration. Verified new warm-earth design renders.
+   7.2. Caught that `website/archive/` was being served publicly (deploy read 49 files; /archive/old-site/picker.html etc. returned 200)
+         Fix: `git mv website/archive archive` — archive now lives at repo ROOT, outside the deploy artifact. Redeployed → 13 files; archive paths now 404, live pages 200.
+         Rule going forward: `website/` contains ONLY what ships; archived/experimental work stays at top-level `archive/`.
+
 ---
 
 ## FILE STRUCTURE
@@ -96,10 +103,11 @@ mom's_company/
 │   │   ├── lm-mono-white.png — LM monogram mark used in navbar/footer
 │   │   ├── flag-uk.png     — EN language toggle flag
 │   │   └── flag-md.png     — RO (Moldova) language toggle flag
-│   └── archive/            — superseded design work (kept for reference, not served as primary)
-│       ├── old-site/       — v1.0 navy/gold site (pages + style.css/themes.css/theme-picker.js + images/)
-│       ├── suggestions/    — design explorations s2–s10
-│       └── suggestion-1/   — alternate full-site exploration
+│       (only the files above ship — see archive/ at repo root, kept OUT of the deploy)
+├── archive/                — superseded design work (in repo, NOT deployed)
+│   ├── old-site/           — v1.0 navy/gold site (pages + style.css/themes.css/theme-picker.js + images/)
+│   ├── suggestions/        — design explorations s2–s10
+│   └── suggestion-1/       — alternate full-site exploration
 ├── source-materials/       — raw briefs & source inputs (gathered from repo root)
 │   ├── WhatsApp Ptt 2026-05-09 at 11.19.52 AM.{ogg,txt} — mic-test voice note + transcript
 │   ├── WhatsApp Ptt 2026-05-09 at 1.36.44 PM.{ogg,txt}  — company briefing voice note + EN translation
