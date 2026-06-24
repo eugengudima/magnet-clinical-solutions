@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Magnet Clinical Solutions</title>
+  <meta name="description" content="Gallery of Magnet Clinical Solutions — our team, facilities, events, and clinical research work in Moldova.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/themes.css">
+  <style>
+    .gallery-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.4rem;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: 2px solid var(--light-gray);
+      background: var(--white);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(27,42,107,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .gallery-overlay span {
+      color: var(--white);
+      font-size: 2rem;
+    }
+    .gallery-item.large {
+      grid-column: span 2;
+    }
+    @media (max-width: 640px) {
+      .gallery-item.large { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled">
+    <div class="container navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+      </a>
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
+      </ul>
+      <button class="navbar-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Visual Story</span>
+      <h1>Gallery</h1>
+      <p>A look at our team, training sessions, clinical research events, and the people behind Magnet Clinical Solutions.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-tabs fade-up">
+        <button class="tab-btn active">All</button>
+        <button class="tab-btn">Team</button>
+        <button class="tab-btn">Training</button>
+        <button class="tab-btn">Events</button>
+        <button class="tab-btn">Clinical Work</button>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item large">
+          <div class="gallery-placeholder" style="height:360px; background: linear-gradient(135deg,#1B2A6B,#2d3f8a);">
+            <div class="icon" style="font-size:3rem;opacity:0.3;">🏥</div>
+            <div class="label" style="color:rgba(255,255,255,0.4);">Clinical Research Facility</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder" style="height:360px;">
+            <div class="icon">🎓</div>
+            <div class="label">Training Session</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="icon">👥</div>
+            <div class="label">Team Photo</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="icon">📋</div>
+            <div class="label">Audit Documentation</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item large">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg,#1a1f3c,#1B2A6B);">
+            <div class="icon" style="font-size:3rem;opacity:0.3;color:var(--gold)">🏆</div>
+            <div class="label" style="color:rgba(255,255,255,0.4);">Award Ceremony</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="icon">🔬</div>
+            <div class="label">Research Lab</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="icon">📊</div>
+            <div class="label">Data Analysis</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="icon">🎤</div>
+            <div class="label">Conference Talk</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="icon">🤝</div>
+            <div class="label">Partner Meeting</div>
+          </div>
+          <div class="gallery-overlay"><span>🔍</span></div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:3rem;" class="fade-up">
+        <p style="color:var(--mid-gray); font-size:0.9rem; margin-bottom:1.5rem;">Photos coming soon — we're building our gallery. Check back regularly.</p>
+        <a href="contact.html" class="btn btn-navy">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container fade-up">
+      <span class="section-label" style="color:var(--gold)">Connect With Us</span>
+      <h2>Want to See More?</h2>
+      <p>Follow our work and reach out to learn how Magnet Clinical Solutions can support your research goals.</p>
+      <a href="contact.html" class="btn btn-primary">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+          <p>Advancing clinical research standards in the Republic of Moldova through expertise, certification, and innovation.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#audit">Clinical Auditing</a></li>
+            <li><a href="services.html#training">Training Platform</a></li>
+            <li><a href="services.html#cro">CRO Services</a></li>
+            <li><a href="services.html#recruitment">Patient Recruitment</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@magnetclinical.md">info@magnetclinical.md</a></li>
+            <li><a href="#">Republic of Moldova</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Magnet Clinical Solutions. All rights reserved.</span>
+        <span>Built with precision.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/main.js"></script>
+  <script>
+    /* Tab filter */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+  <script src="assets/theme-picker.js"></script>
+</body>
+</html>

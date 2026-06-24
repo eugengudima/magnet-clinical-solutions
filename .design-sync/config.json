@@ -1,0 +1,18 @@
+{
+  "pkg": "magnet-clinical-ui",
+  "globalName": "MagnetUI",
+  "projectId": "16b02ea8-5ae3-46c4-9704-d6059f3abf86",
+  "shape": "package",
+  "buildCmd": "npm --prefix library run build",
+  "srcDir": "src",
+  "cssEntry": "styles/styles.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "Hero": { "cardMode": "column" },
+    "PageHero": { "cardMode": "column" },
+    "Footer": { "cardMode": "column" },
+    "CtaSection": { "cardMode": "column" },
+    "ServiceDetail": { "cardMode": "column" },
+    "Navbar": { "cardMode": "column" }
+  }
+}

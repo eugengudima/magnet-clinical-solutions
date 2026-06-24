@@ -4,3 +4,12 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# design-sync scratch
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+library/node_modules/
+library/dist/

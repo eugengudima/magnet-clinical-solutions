@@ -4,64 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery — Magnet Clinical Solutions</title>
-  <meta name="description" content="Gallery of Magnet Clinical Solutions — our team, facilities, events, and clinical research work in Moldova.">
+  <meta name="description" content="Our team, training sessions, clinical research events, and the people behind Magnet Clinical Solutions.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/themes.css">
-  <style>
-    .gallery-tabs {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 3rem;
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      padding: 0.6rem 1.4rem;
-      border-radius: 100px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border: 2px solid var(--light-gray);
-      background: var(--white);
-      color: var(--text-light);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .tab-btn.active,
-    .tab-btn:hover {
-      background: var(--navy);
-      border-color: var(--navy);
-      color: var(--white);
-    }
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--radius);
-    }
-    .gallery-item:hover .gallery-overlay {
-      opacity: 1;
-    }
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(27,42,107,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .gallery-overlay span {
-      color: var(--white);
-      font-size: 2rem;
-    }
-    .gallery-item.large {
-      grid-column: span 2;
-    }
-    @media (max-width: 640px) {
-      .gallery-item.large { grid-column: span 1; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css">
+  <script>(function(){try{if(localStorage.getItem('mcs_theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -69,7 +17,8 @@
   <nav class="navbar scrolled">
     <div class="container navbar-inner">
       <a href="index.html" class="navbar-logo">
-        <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+        <span class="mark"><img src="assets/lm-mono-white.png" alt="Magnet Clinical Solutions logo"></span>
+        <span class="wordmark">Magnet Clinical Solutions</span>
       </a>
       <ul class="navbar-links">
         <li><a href="index.html">Home</a></li>
@@ -78,9 +27,15 @@
         <li><a href="gallery.html" class="active">Gallery</a></li>
         <li><a href="contact.html" class="navbar-cta">Contact Us</a></li>
       </ul>
-      <button class="navbar-hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
+      <div class="lang-switch" role="group" aria-label="Language / Limbă">
+        <button class="lang-btn" data-lang="en" aria-label="English"><img src="assets/flag-uk.png" alt="English"></button>
+        <button class="lang-btn" data-lang="ro" aria-label="Română"><img src="assets/flag-md.png" alt="Română"></button>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       </button>
+      <button class="navbar-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
@@ -96,91 +51,64 @@
   <!-- GALLERY -->
   <section class="gallery-section">
     <div class="container">
-      <div class="gallery-tabs fade-up">
-        <button class="tab-btn active">All</button>
-        <button class="tab-btn">Team</button>
-        <button class="tab-btn">Training</button>
-        <button class="tab-btn">Events</button>
-        <button class="tab-btn">Clinical Work</button>
+      <div class="gallery-tabs reveal">
+        <button class="tab-btn active" data-cat="all">All</button>
+        <button class="tab-btn" data-cat="team">Team</button>
+        <button class="tab-btn" data-cat="training">Training</button>
+        <button class="tab-btn" data-cat="events">Events</button>
+        <button class="tab-btn" data-cat="clinical">Clinical Work</button>
       </div>
 
       <div class="gallery-grid">
-        <div class="gallery-item large">
-          <div class="gallery-placeholder" style="height:360px; background: linear-gradient(135deg,#1B2A6B,#2d3f8a);">
-            <div class="icon" style="font-size:3rem;opacity:0.3;">🏥</div>
-            <div class="label" style="color:rgba(255,255,255,0.4);">Clinical Research Facility</div>
-          </div>
+        <div class="gallery-item large reveal" data-cat="clinical">
+          <div class="gallery-ph forest"><div class="icon">🏥</div><div class="label">Clinical research facility</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder" style="height:360px;">
-            <div class="icon">🎓</div>
-            <div class="label">Training Session</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="training">
+          <div class="gallery-ph"><div class="icon">🎓</div><div class="label">Training session</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <div class="icon">👥</div>
-            <div class="label">Team Photo</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="team">
+          <div class="gallery-ph"><div class="icon">👥</div><div class="label">Team photo</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <div class="icon">📋</div>
-            <div class="label">Audit Documentation</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="clinical">
+          <div class="gallery-ph"><div class="icon">📋</div><div class="label">Audit documentation</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item large">
-          <div class="gallery-placeholder" style="background: linear-gradient(135deg,#1a1f3c,#1B2A6B);">
-            <div class="icon" style="font-size:3rem;opacity:0.3;color:var(--gold)">🏆</div>
-            <div class="label" style="color:rgba(255,255,255,0.4);">Award Ceremony</div>
-          </div>
+        <div class="gallery-item large reveal" data-cat="events">
+          <div class="gallery-ph forest"><div class="icon">🏆</div><div class="label">Award ceremony</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <div class="icon">🔬</div>
-            <div class="label">Research Lab</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="clinical">
+          <div class="gallery-ph"><div class="icon">🔬</div><div class="label">Research lab</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <div class="icon">📊</div>
-            <div class="label">Data Analysis</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="clinical">
+          <div class="gallery-ph"><div class="icon">📊</div><div class="label">Data analysis</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <div class="icon">🎤</div>
-            <div class="label">Conference Talk</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="events">
+          <div class="gallery-ph"><div class="icon">🎤</div><div class="label">Conference talk</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <div class="icon">🤝</div>
-            <div class="label">Partner Meeting</div>
-          </div>
+        <div class="gallery-item reveal" data-cat="team">
+          <div class="gallery-ph"><div class="icon">🤝</div><div class="label">Partner meeting</div></div>
           <div class="gallery-overlay"><span>🔍</span></div>
         </div>
       </div>
 
-      <div style="text-align:center; margin-top:3rem;" class="fade-up">
-        <p style="color:var(--mid-gray); font-size:0.9rem; margin-bottom:1.5rem;">Photos coming soon — we're building our gallery. Check back regularly.</p>
-        <a href="contact.html" class="btn btn-navy">Get in Touch</a>
+      <div style="text-align:center; margin-top:3rem;" class="reveal">
+        <p style="margin-bottom:1.5rem;">Photos coming soon — we're building our gallery. Check back regularly.</p>
+        <a href="contact.html" class="btn btn-outline">Get in Touch</a>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="cta-section">
-    <div class="container fade-up">
-      <span class="section-label" style="color:var(--gold)">Connect With Us</span>
+    <div class="container reveal">
+      <span class="section-label">Connect With Us</span>
       <h2>Want to See More?</h2>
       <p>Follow our work and reach out to learn how Magnet Clinical Solutions can support your research goals.</p>
       <a href="contact.html" class="btn btn-primary">Contact Us</a>
@@ -192,7 +120,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+          <span class="wordmark"><span class="mark"><img src="assets/lm-mono-white.png" alt="Magnet Clinical Solutions logo"></span>Magnet Clinical Solutions</span>
           <p>Advancing clinical research standards in the Republic of Moldova through expertise, certification, and innovation.</p>
         </div>
         <div class="footer-col">
@@ -222,23 +150,12 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Magnet Clinical Solutions. All rights reserved.</span>
-        <span>Built with precision.</span>
+        <span>Rooted in Moldova.</span>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/i18n.js"></script>
   <script src="assets/main.js"></script>
-  <script>
-    /* Tab filter */
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-  </script>
-  <script src="assets/theme-picker.js"></script>
 </body>
 </html>

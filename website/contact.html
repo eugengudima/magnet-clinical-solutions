@@ -6,9 +6,10 @@
   <title>Contact — Magnet Clinical Solutions</title>
   <meta name="description" content="Contact Magnet Clinical Solutions to discuss auditing, training, CRO services, or patient recruitment in Moldova.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/themes.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css">
+  <script>(function(){try{if(localStorage.getItem('mcs_theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -16,7 +17,8 @@
   <nav class="navbar scrolled">
     <div class="container navbar-inner">
       <a href="index.html" class="navbar-logo">
-        <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+        <span class="mark"><img src="assets/lm-mono-white.png" alt="Magnet Clinical Solutions logo"></span>
+        <span class="wordmark">Magnet Clinical Solutions</span>
       </a>
       <ul class="navbar-links">
         <li><a href="index.html">Home</a></li>
@@ -25,9 +27,15 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html" class="navbar-cta active">Contact Us</a></li>
       </ul>
-      <button class="navbar-hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
+      <div class="lang-switch" role="group" aria-label="Language / Limbă">
+        <button class="lang-btn" data-lang="en" aria-label="English"><img src="assets/flag-uk.png" alt="English"></button>
+        <button class="lang-btn" data-lang="ro" aria-label="Română"><img src="assets/flag-md.png" alt="Română"></button>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       </button>
+      <button class="navbar-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
@@ -40,50 +48,41 @@
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
+  <!-- CONTACT -->
   <section class="contact-section">
     <div class="container">
       <div class="contact-inner">
-        <div class="contact-info slide-left">
+        <div class="contact-info reveal left">
           <span class="section-label">Get in Touch</span>
           <h2>Let's Start a Conversation</h2>
           <p>Whether you need an audit, want to enroll in a training course, are looking for a CRO partner, or want to discuss patient recruitment — we're here to help.</p>
 
           <div class="contact-detail">
             <div class="contact-detail-icon">📧</div>
-            <div class="contact-detail-text">
-              <strong>Email</strong>
-              <span>info@magnetclinical.md</span>
-            </div>
+            <div><strong>Email</strong><span><a href="mailto:info@magnetclinical.md">info@magnetclinical.md</a></span></div>
           </div>
           <div class="contact-detail">
             <div class="contact-detail-icon">📍</div>
-            <div class="contact-detail-text">
-              <strong>Location</strong>
-              <span>Republic of Moldova</span>
-            </div>
+            <div><strong>Location</strong><span>Republic of Moldova</span></div>
           </div>
           <div class="contact-detail">
             <div class="contact-detail-icon">🕐</div>
-            <div class="contact-detail-text">
-              <strong>Response Time</strong>
-              <span>Within 24 business hours</span>
-            </div>
+            <div><strong>Response Time</strong><span>Within 24 business hours</span></div>
           </div>
 
           <div style="margin-top:2.5rem;">
             <span class="section-label">Services Enquiry</span>
-            <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.75rem;">
-              <a href="services.html#audit" style="color:var(--text-light); font-size:0.92rem;">→ Clinical Study Auditing</a>
-              <a href="services.html#training" style="color:var(--text-light); font-size:0.92rem;">→ Training Platform</a>
-              <a href="services.html#cro" style="color:var(--text-light); font-size:0.92rem;">→ CRO Services</a>
-              <a href="services.html#recruitment" style="color:var(--text-light); font-size:0.92rem;">→ Patient Recruitment</a>
+            <div class="contact-links">
+              <a href="services.html#audit">→ Clinical Study Auditing</a>
+              <a href="services.html#training">→ Training Platform</a>
+              <a href="services.html#cro">→ CRO Services</a>
+              <a href="services.html#recruitment">→ Patient Recruitment</a>
             </div>
           </div>
         </div>
 
-        <div class="contact-form slide-right">
-          <h3 style="margin-bottom:1.5rem;">Send Us a Message</h3>
+        <div class="contact-form reveal right">
+          <h3>Send Us a Message</h3>
           <form>
             <div class="form-row">
               <div class="form-group">
@@ -118,9 +117,7 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Tell us about your project, requirements, or questions..." required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; font-size:1rem;">
-              Send Message
-            </button>
+            <button type="submit" class="btn btn-primary" style="width:100%; font-size:1rem;">Send Message</button>
           </form>
         </div>
       </div>
@@ -128,29 +125,17 @@
   </section>
 
   <!-- FAQ -->
-  <section style="background:var(--white); padding:5rem 0;">
+  <section class="faq-section">
     <div class="container">
-      <div style="text-align:center; max-width:580px; margin:0 auto 3rem;" class="fade-up">
+      <div class="section-header center reveal">
         <span class="section-label">Common Questions</span>
         <h2>Frequently Asked Questions</h2>
       </div>
-      <div style="max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:1.2rem;">
-        <div class="service-card fade-up" style="padding:1.8rem;">
-          <h4 style="margin-bottom:0.5rem;">What types of clinical studies can you audit?</h4>
-          <p style="font-size:0.92rem;">We audit Phase I–IV clinical studies, observational studies, and post-marketing surveillance studies. Our audits comply with ICH GCP E6(R2) and applicable regulatory frameworks.</p>
-        </div>
-        <div class="service-card fade-up" style="padding:1.8rem;">
-          <h4 style="margin-bottom:0.5rem;">Are your training certificates officially recognized?</h4>
-          <p style="font-size:0.92rem;">Yes. All our courses are certified by the Ministry of Education of the Republic of Moldova, granting them official status for professional development and regulatory compliance purposes.</p>
-        </div>
-        <div class="service-card fade-up" style="padding:1.8rem;">
-          <h4 style="margin-bottom:0.5rem;">How long does it take to authorize a study in Moldova?</h4>
-          <p style="font-size:0.92rem;">Authorization timelines depend on the study type and regulatory pathway. We guide sponsors through the full process and provide realistic timeline estimates during initial consultations.</p>
-        </div>
-        <div class="service-card fade-up" style="padding:1.8rem;">
-          <h4 style="margin-bottom:0.5rem;">Do you work with international sponsors?</h4>
-          <p style="font-size:0.92rem;">Absolutely. Our CRO and patient recruitment services are specifically designed for international pharmaceutical companies and sponsors seeking to conduct studies in Moldova.</p>
-        </div>
+      <div class="faq-list">
+        <div class="faq-item reveal"><h4>What types of clinical studies can you audit?</h4><p>We audit Phase I–IV clinical studies, observational studies, and post-marketing surveillance studies. Our audits comply with ICH GCP E6(R2) and applicable regulatory frameworks.</p></div>
+        <div class="faq-item reveal"><h4>Are your training certificates officially recognized?</h4><p>Yes. All our courses are certified by the Ministry of Education of the Republic of Moldova, granting them official status for professional development and regulatory compliance purposes.</p></div>
+        <div class="faq-item reveal"><h4>How long does it take to authorize a study in Moldova?</h4><p>Authorization timelines depend on the study type and regulatory pathway. We guide sponsors through the full process and provide realistic timeline estimates during initial consultations.</p></div>
+        <div class="faq-item reveal"><h4>Do you work with international sponsors?</h4><p>Absolutely. Our CRO and patient recruitment services are specifically designed for international pharmaceutical companies and sponsors seeking to conduct studies in Moldova.</p></div>
       </div>
     </div>
   </section>
@@ -160,7 +145,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo.png" alt="Magnet Clinical Solutions">
+          <span class="wordmark"><span class="mark"><img src="assets/lm-mono-white.png" alt="Magnet Clinical Solutions logo"></span>Magnet Clinical Solutions</span>
           <p>Advancing clinical research standards in the Republic of Moldova through expertise, certification, and innovation.</p>
         </div>
         <div class="footer-col">
@@ -190,14 +175,12 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Magnet Clinical Solutions. All rights reserved.</span>
-        <span>Built with precision.</span>
+        <span>Rooted in Moldova.</span>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/i18n.js"></script>
   <script src="assets/main.js"></script>
-  <script src="assets/theme-picker.js"></script>
 </body>
 </html>
