@@ -54,7 +54,7 @@ website/
     ├── main.js     UI behaviour: navbar scroll state, dark-mode toggle, mobile menu, reveal/timeline/counter observers
     ├── i18n.js     Runtime EN→RO translation (DOM text-node walker + dictionary)
     ├── logo.png            full logo lockup (navy)
-    ├── lm-mono-white.png   "LM" monogram mark — used in navbar + footer wordmark
+    ├── lm-mono-white.png   "LM" monogram mark — used in navbar + footer wordmark (and the email signature lockup)
     ├── flag-uk.png         English language-toggle flag
     └── flag-md.png         Moldova/Romanian language-toggle flag
 ```
@@ -94,10 +94,19 @@ No cookies, no backend, no other persistence. The contact form does not POST any
 - **Global JS API:** `window.mcsTranslate(str)` → returns the RO string if RO active and a
   dictionary entry exists, else `str` (used for dynamically created text, e.g. form
   success messages). `window.__mcsLang` holds the active lang code.
-- **Email contract:** the only contact email is `info@magnetclinical.md`, linked as a
-  plain `mailto:`. (Do NOT reintroduce Cloudflare `/cdn-cgi/l/email-protection` obfuscation
-  or `__cf_email__` spans — these were stripped during integration and the decode script
-  removed.)
+- **Analytics:** Cloudflare Web Analytics beacon on every page, immediately before `</body>`
+  (after `assets/main.js`): `<script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+  data-cf-beacon='{"token": "fc06107ae3114177bbcc1b9be8e26094"}'></script>`. Manual/JS-beacon
+  mode (NOT edge-injected) because hosting is GitHub Pages with grey-cloud Cloudflare DNS, so
+  traffic never passes through CF's proxy. Cookieless — no consent banner. View at CF dash →
+  Analytics → Web Analytics.
+- **Contact contract:** the contact email is `lina.gudima@magnet-clinical-solutions.com`
+  (matches the email signature + working M365 admin UPN), linked as a plain `mailto:`. The
+  phone is `+373 69 607 851`, linked as `tel:+37369607851`. Both appear in every page footer
+  (order: Email · Phone · Location) and in `contact.html`'s main contact block. (Do NOT
+  reintroduce Cloudflare `/cdn-cgi/l/email-protection` obfuscation or `__cf_email__` spans —
+  these were stripped during integration and the decode script removed. The old
+  `info@magnetclinical.md` address is retired site-wide.)
 
 ## 5. i18n algorithm (re-implementable detail)
 
