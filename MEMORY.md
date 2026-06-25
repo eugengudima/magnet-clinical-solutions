@@ -1,7 +1,7 @@
 # MEMORY.md — mom's_company
 # Location: /home/eugen/claudehome/projects/mom's_company/MEMORY.md
 # Rule: NEVER overwrite — append only (except FILE STRUCTURE which updates in place)
-# Last updated: 2026-06-24 (new "warm-earth" site integrated; repo reorganized)
+# Last updated: 2026-06-25 (brochure: logo recolor, patient-eye fix, print white-line fix, new symbolic infographics)
 
 ---
 
@@ -79,6 +79,21 @@
          Fix: `git mv website/archive archive` — archive now lives at repo ROOT, outside the deploy artifact. Redeployed → 13 files; archive paths now 404, live pages 200.
          Rule going forward: `website/` contains ONLY what ships; archived/experimental work stays at top-level `archive/`.
 
+8. Patient FAQ brochure — logo recolor, infographic fixes, print white-line fix — 2026-06-25
+   Context: `brochure/Brosura FAQ Pacienti - EDITABILA.html` is a self-contained editable A4 brochure (9 sections: Cover A editorial/cream, Cover B forest band, 6 inner FAQ pages, back cover) reusing the warm-earth tokens (forest #2c5f3c, gold #c4963a, cream #faf6f1, Lora/Nunito). Editor chrome = top bar with "Salvează ca PDF" (window.print) + "Descarcă o copie editabilă"; body text is contenteditable. All of `brochure/` is still UNTRACKED in git.
+   8.1. Logo was a screenshot PNG: navy ink #000743 on an OPAQUE white bg with a gray #c0c0c0 border, embedded as base64 in 3 places (covers A, B, back) — clashed with the cream/forest theme and forced white "badge" cards on the forest covers.
+         Fix: extracted the PNG, cropped to the ink bbox (drops border + white margin), made bg transparent (alpha = 255-min(r,g,b)), recolored ink → forest #224b30 (cover A on cream) and → white (covers B + back on forest). Re-embedded as base64; removed the two white card wrappers so the white logo sits directly on forest. Recolor script + assets in scratchpad (logo_forest.png / logo_white.png).
+   8.2. First infographic (the doctor+patient SVG, viewBox 0 0 800 470, on Cover A) — the patient had only ONE eye (`circle cx=210 cy=162`). Added the missing eye (`circle cx=192 cy=163 r=2.4`). Doctor already had two (glasses). User wants the literal human-figure illustrations KEPT but prefers the symbolic ones.
+   8.3. White-line bug (others' PDF exports show thin white lines author can't see): root cause = `@media print{html,body{background:#fff}}` while pages are cream — sub-pixel page-edge gaps in other renderers reveal the white body. Fix: print body bg → `var(--mcs-cream)`; also bled Cover B's 61% forest band (`top/left/right:-2px; height:calc(61% + 2px)`) to kill the one abutting forest↔cream seam. Verified clean via chromium print-to-pdf at 300dpi.
+   8.4. Infographic style identified + extended: the loved "heart in hands" illo (Cover B, viewBox 0 0 380 300) = symbolic recipe — cream gradient bg + radial glow + gold sparkle/dot accents + cupped hands cradling a forest-green central symbol with a gold accent line. Authored 4 NEW ones on the same recipe (shield+check = oversight, document+check = consent, padlock = data confidentiality, medical cross = care). Preview sheet rendered; awaiting user pick on which to keep and where to place (Q3 + Q11 have empty placeholder slots).
+         Note: `brochure/Brosura FAQ Pacienti.pdf` (824KB) + `.dc.html` are now STALE (pre-fix) — regenerate after brochure changes settle.
+
+9. Live site moved to the real brand domain `magnet-clinical-solutions.com` — 2026-06-25
+   Context: user finally bought `magnet-clinical-solutions.com` (the .com they originally wanted; previously the site lived on the fallback `magnet-solutions.org`). The new domain's nameservers are the SAME Cloudflare account (bailey/ned.ns.cloudflare.com) → bought via/added to Cloudflare, so DNS was already on CF.
+   9.1. User added DNS in the Cloudflare `.com` zone (I have no DNS scope — wrangler token is workers-only): apex `@` → 4 GitHub A records (185.199.108–111.153) + `www` CNAME → `eugengudima.github.io`, all DNS-only/grey. (www was missed on the first save; re-added.)
+   9.2. Switched GitHub Pages custom domain `.org` → `.com` via `gh api PUT .../pages -f cname=magnet-clinical-solutions.com -f build_type=workflow`; updated `website/CNAME` → `.com`; committed (680847e) + pushed. Cert provisioned FAST this time (no stall): state went `authorized` → `approved`, valid Let's Encrypt cert SAN = apex + www. Enforced HTTPS with `-F https_enforced=true` (real boolean; string form 422s). www → 301 → apex confirmed.
+   9.3. STILL TODO (user, Cloudflare dash): redirect old `magnet-solutions.org` → `.com`. Since Pages now serves `.com`, `.org` (still pointing at GitHub IPs) returns GitHub's generic 404 until a redirect is set. Plan: turn `.org` apex+www proxied/orange, add a Single Redirect rule → `https://magnet-clinical-solutions.com` preserving path (301).
+
 ---
 
 ## FILE STRUCTURE
@@ -114,7 +129,13 @@ mom's_company/
 │   ├── 2026-05-09-140210_hyprshot.png  — logo source screenshot
 │   ├── persona-infographic.html        — target-persona infographic
 │   └── warm-earth-site-export.zip      — original design export (assets, now unpacked into website/)
-├── brochure/               — client brochure source images (WA0002–WA0006.jpg)
+├── brochure/               — patient FAQ brochure (UNTRACKED in git)
+│   ├── Brosura FAQ Pacienti - EDITABILA.html — self-contained editable A4 brochure (current deliverable; logo recolored, eye + white-line fixes applied)
+│   ├── Brosura FAQ Pacienti.dc.html          — earlier print-layout export (STALE, pre-fix)
+│   ├── Brosura FAQ Pacienti.pdf              — exported PDF (STALE, pre-fix — regenerate)
+│   ├── IMG-20260624-WA0002..0006.jpg         — client's original brochure design (source being reproduced)
+│   ├── Clinical Magnet brochure design*.zip  — design exports (4 near-dup zips; candidate cleanup)
+│   ├── assets/magnet-logo.png                — logo asset; _ds/ — Claude Design system export (tokens+bundle); support.js
 ├── logo-variants/          — full logo asset pack (see logo-variants/README.md)
 │   ├── README.md           — inventory, brand colors, naming, favicon snippet, regen steps
 │   ├── svg/                — 12 masters: {full,icon,wordmark} × {navy,white,black,gold}

@@ -2,7 +2,7 @@
 
 # Location: /home/eugen/projects/mom's_company/SPEC.md
 # Rule: This file describes the CURRENT state — update IN PLACE, never append-only. Reconcile at the end of any session that changes a contract, value, or schema.
-# Last updated: 2026-06-24
+# Last updated: 2026-06-25
 
 This is the reproduction contract for the **live website** under `website/` (the
 "warm-earth" design). A fresh session given only this file should be able to rebuild a
@@ -23,12 +23,20 @@ and are out of scope here.
   `python3 -m http.server -d website 8000` then open `http://localhost:8000/`.
   (Opening `file://` also mostly works; a server is preferred so relative asset paths and
   `localStorage` behave normally.)
-- **Deploy:** Cloudflare Workers static assets. `wrangler.jsonc` at repo root sets
-  `name: "magnet-clinical-solutions"`, `assets.directory: "website"`,
-  `compatibility_date: "2026-05-09"`, `compatibility_flags: ["nodejs_compat"]`,
-  observability enabled. Deploy with `npx wrangler deploy` (wrangler is not vendored;
-  invoke via npx).
-- **System deps:** none beyond a browser and (for deploy) Node + wrangler.
+- **Deploy (LIVE):** GitHub Pages. `.github/workflows/pages.yml` publishes the `website/`
+  dir to Pages on every push to `master`. Custom domain **`magnet-clinical-solutions.com`**
+  (set via the Pages API/Settings; `website/CNAME` mirrors it as belt-and-suspenders).
+  HTTPS enforced (Let's Encrypt cert covering apex + `www`). **DNS is on Cloudflare**
+  (same account/nameservers as before): apex `@` → 4 GitHub A records
+  (185.199.108–111.153) + `www` CNAME → `eugengudima.github.io`, all **DNS-only/grey-cloud**
+  (proxied/orange breaks GitHub's cert). The old domain `magnet-solutions.org` 301-redirects
+  to `.com` via a Cloudflare redirect rule.
+- **Deploy (fallback, optional):** Cloudflare Workers static assets. `wrangler.jsonc` at repo
+  root sets `name: "magnet-clinical-solutions"`, `assets.directory: "website"`,
+  `compatibility_date: "2026-05-09"`, `compatibility_flags: ["nodejs_compat"]`. Manual
+  `npx wrangler deploy` → `*.workers.dev`. Not the production path.
+- **System deps:** none beyond a browser; deploy is automatic on push (Node + wrangler only
+  needed for the optional Workers fallback).
 
 ## 2. Architecture (files & responsibilities)
 
