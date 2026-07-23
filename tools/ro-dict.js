@@ -1,13 +1,25 @@
 /* ============================================================
-   Magnet Clinical Solutions — EN / RO i18n
-   Translates DOM text nodes + input placeholders + <title>.
-   No HTML data-attributes needed: matches by source English text.
+   Magnet Clinical Solutions — EN → RO dictionary (BUILD-TIME ONLY)
+   Consumed by tools/build-ro.py, which pre-renders website/ro/*.html.
+   Not loaded in the browser. After editing any English copy in
+   website/*.html, update the matching key here and re-run:
+       python3 tools/build-ro.py
    ============================================================ */
-(function () {
-  'use strict';
 
   /* Romanian dictionary, keyed by exact (trimmed) English source text. */
   var RO = {
+    /* ---- Meta descriptions ---- */
+    "Clinical study auditing, certified training, CRO services, and patient recruitment in the Republic of Moldova.":
+      "Audit al studiilor clinice, instruire certificată, servicii CRO și recrutare de pacienți în Republica Moldova.",
+    "Our mission, founder, and commitment to advancing clinical research in the Republic of Moldova.":
+      "Misiunea, fondatoarea și angajamentul nostru pentru promovarea cercetării clinice în Republica Moldova.",
+    "Clinical study auditing, training platform, CRO services, and patient recruitment.":
+      "Audit al studiilor clinice, platformă de instruire, servicii CRO și recrutarea pacienților.",
+    "Our team, training sessions, clinical research events, and the people behind Magnet Clinical Solutions.":
+      "Echipa noastră, sesiunile de instruire, evenimentele de cercetare clinică și oamenii din spatele Magnet Clinical Solutions.",
+    "Contact Magnet Clinical Solutions to discuss auditing, training, CRO services, or patient recruitment in Moldova.":
+      "Contactați Magnet Clinical Solutions pentru a discuta despre audit, instruire, servicii CRO sau recrutarea pacienților în Moldova.",
+
     /* ---- Nav ---- */
     "Home": "Acasă",
     "About": "Despre",
@@ -312,6 +324,7 @@
     "Whether you need an audit, want to enroll in a training course, are looking for a CRO partner, or want to discuss patient recruitment — we're here to help.":
       "Fie că aveți nevoie de un audit, doriți să vă înscrieți la un curs, căutați un partener CRO sau doriți să discutați despre recrutarea pacienților — suntem aici să vă ajutăm.",
     "Email": "Email",
+    "Phone": "Telefon",
     "Location": "Locație",
     "Response Time": "Timp de răspuns",
     "Within 24 business hours": "În 24 de ore lucrătoare",
@@ -357,80 +370,3 @@
     "Gallery — Magnet Clinical Solutions": "Galerie — Magnet Clinical Solutions",
     "Contact — Magnet Clinical Solutions": "Contact — Magnet Clinical Solutions"
   };
-
-  var STORAGE_KEY = 'mcs_lang';
-  var textSnap = null;   // [{node, en}]
-  var phSnap = null;     // [{el, en}]
-  var titleEN = null;
-
-  function collect() {
-    textSnap = [];
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) {
-        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        var p = n.parentNode;
-        if (!p) return NodeFilter.FILTER_REJECT;
-        var tag = p.nodeName;
-        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
-        if (p.closest && p.closest('.lang-switch')) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    var n;
-    while ((n = walker.nextNode())) textSnap.push({ node: n, en: n.nodeValue });
-
-    phSnap = [];
-    document.querySelectorAll('[placeholder]').forEach(function (el) {
-      phSnap.push({ el: el, en: el.getAttribute('placeholder') });
-    });
-    titleEN = document.title;
-  }
-
-  function applyLang(lang) {
-    if (!textSnap) collect();
-    var ro = lang === 'ro';
-
-    textSnap.forEach(function (it) {
-      var raw = it.en, key = raw.trim();
-      if (ro && RO[key] !== undefined) {
-        var i = raw.indexOf(key);
-        it.node.nodeValue = raw.slice(0, i) + RO[key] + raw.slice(i + key.length);
-      } else if (it.node.nodeValue !== raw) {
-        it.node.nodeValue = raw;
-      }
-    });
-
-    phSnap.forEach(function (it) {
-      it.el.setAttribute('placeholder', (ro && RO[it.en] !== undefined) ? RO[it.en] : it.en);
-    });
-
-    document.title = (ro && RO[titleEN] !== undefined) ? RO[titleEN] : titleEN;
-    document.documentElement.lang = ro ? 'ro' : 'en';
-
-    document.querySelectorAll('.lang-btn').forEach(function (b) {
-      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
-      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
-    });
-
-    window.__mcsLang = lang;
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
-  }
-
-  /* Public helper for scripts (e.g. form success message) */
-  window.mcsTranslate = function (str) {
-    return (window.__mcsLang === 'ro' && RO[str] !== undefined) ? RO[str] : str;
-  };
-
-  function init() {
-    collect();
-    var saved = 'en';
-    try { saved = localStorage.getItem(STORAGE_KEY) || 'en'; } catch (e) {}
-    document.querySelectorAll('.lang-btn').forEach(function (b) {
-      b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang')); });
-    });
-    applyLang(saved === 'ro' ? 'ro' : 'en');
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();

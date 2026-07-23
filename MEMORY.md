@@ -122,6 +122,37 @@
 12. Synced the website's public contact info to the email signature (user: "update the contact information on the website with what we have prepared in the mail_signiture"). Replaced the retired `info@magnetclinical.md` with `lina.gudima@magnet-clinical-solutions.com` site-wide (user picked Lina's signature email over a generic info@), and ADDED the phone `+373 69 607 851` (`tel:+37369607851`) which the site had been missing entirely. Footers on all 5 pages now list Email · Phone · Location; `contact.html`'s main contact block gained a 📞 Phone detail row. Verified: zero residual `magnetclinical.md` refs. Updated SPEC.md §4 "Contact contract" + MEMORY KEY NUMBERS. NOT yet committed/pushed (awaiting Cloudflare Web Analytics beacon token to bundle both into one Pages deploy).
     12.1. Cloudflare Web Analytics: hosting is GitHub Pages with grey-cloud/DNS-only Cloudflare DNS, so CF's edge/proxy injection + proxy analytics see no traffic. SOLUTION = manual JS beacon snippet added to every page before `</body>` (after main.js): `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "fc06107ae3114177bbcc1b9be8e26094"}'></script>`. Token `fc06107ae3114177bbcc1b9be8e26094` (site `magnet-clinical-solutions.com`, Manual setup). Privacy-first/cookieless — no consent banner needed (good for an EU medical clinic). On all 5 pages. Dashboard: CF dash → Analytics → Web Analytics. Data appears within a few min of the first real visit post-deploy. The website "main logo" is NOT an image file — it's a CSS lockup: forest tile (`background:var(--forest)` #2c5f3c, ~36px, border-radius 8px) holding the white `lm-mono-white.png` monogram, + serif wordmark "Magnet Clinical Solutions" (Lora→Georgia, forest #2c5f3c). Rebuilt the signature logo as an email-safe nested table replicating that: 38px green tile (bg #2c5f3c, radius 8px) with the monogram img (21px) + 10px gap + Georgia 18px/700 forest wordmark, wrapped in a link to the site. KEY WIN: `lm-mono-white.png` is ALREADY hosted live (200) → loads in Outlook with NO deploy/push. Reverted the earlier gold-logo detour: undid the local commit (`git reset HEAD~1`), restored `website/assets/logo.png`, deleted `website/assets/logo-gold.png` + `mail_signiture/logo-gold.png`, reverted the SPEC.md asset line. Net website change from this whole signature task = ZERO (site untouched). The gold full-lockup approach is abandoned. NOTE for future: an email-signature image must be a public URL — prefer reusing an already-hosted site asset over adding a new one (which would need a deploy).
 
+13. Code-reviewed commit 7d20f99 (the analytics+contact sync) and applied a follow-up i18n fix — 2026-06-28
+    Context: user asked for a bug/runtime review of the last commit (`/code-review HEAD`). One real defect found: the new `<strong>Phone</strong>` contact-detail row + footer phone label had NO entry in the RO dictionary, so switching to Romanian left "Phone" untranslated between the (translated) "Email" and "Locație" labels. Everything else in the commit verified clean (no residual `info@magnetclinical.md`, `tel:` digits match the display, beacon placement/`defer` correct, same token on all 5 pages).
+    13.1. Fix applied: added `"Phone": "Telefon",` to `website/assets/i18n.js` (contact-page section, right after the `"Email"` entry). One line. No SPEC/contract drift (SPEC §5 documents the i18n algorithm, not the key list).
+    13.2. UNCOMMITTED STATE for next session (user: "list of uncommitted actions"):
+          • `website/assets/i18n.js` — MODIFIED, not committed/pushed. This is the Phone→Telefon fix above; it's a follow-up to the already-pushed 7d20f99 and should be committed + pushed on its own (small Pages deploy). This is the ONLY pending tracked change.
+          • HEAD `7d20f99` is ALREADY on `origin/master` (analytics beacon + contact sync are live after the Pages build) — nothing to re-push there.
+          • Untracked-by-DESIGN (do NOT `git add` without asking — these are deliverables deliberately kept out of git): all of `brochure/` (brochure-patients/medics .html+.pdf, `Broșura medici.docx`, the 4 near-dup `Clinical Magnet brochure design*.zip`, `_ds/`, `assets/`, `support.js`, stale `Brosura FAQ Pacienti.dc.html`) and all of `mail_signiture/` (signature.html, preview.png, logo-gold.png).
+          • Still-open external TODO (carried from 9.3, user-side, Cloudflare dash): redirect old `magnet-solutions.org` → `.com` (301, preserve path).
+
+14. Site review → real contact form + indexable Romanian pages — 2026-07-07
+    Context: user asked for a full website review, then "please would you do 1,4. i need it to be romanian-indexable" (1 = the contact form silently discarded submissions; 4 = RO existed only as client-side JS translation, invisible to search engines).
+    14.1. Contact form wired to FormSubmit.co (no signup/API key needed): `main.js` now POSTs FormData to `https://formsubmit.co/ajax/lina.gudima@magnet-clinical-solutions.com`; success shows "Message Sent ✓"/"Mesaj trimis ✓" (by `document.documentElement.lang`), failure shows an inline mailto fallback (built with createElement — innerHTML is hook-blocked). Hidden fields added to contact.html: `_subject`, `_template=table`, `_captcha=false`, `_honey` honeypot. Sent the activation-trigger test POST (needs `Origin:` header or FormSubmit rejects as file://) — **ACTIVATION EMAIL IS SITTING IN lina.gudima@'s INBOX; form delivers nothing until that link is clicked** (fails safe: mailto fallback shows meanwhile).
+    14.2. Romanian made crawlable by PRE-RENDERING static pages: new `tools/build-ro.py` (Python stdlib html.parser) transforms the 5 EN pages into committed `website/ro/*.html` — text/title/placeholder/meta-description translation via the dictionary, `lang="ro"`, canonical → /ro/ URL, `assets/` → `../assets/`, lang-switcher flipped. The old runtime translator was RETIRED: `git mv website/assets/i18n.js tools/ro-dict.js` + stripped to dictionary-only (added 5 meta-description keys); pages no longer load i18n.js; `mcs_lang` localStorage is dead. Lang switch flags are now real `<a>` links (EN↔RO URL pairs), so no-JS users and crawlers can navigate languages.
+    14.3. SEO plumbing: canonical + hreflang en/ro/x-default `<link>`s on all 10 pages (absolute `https://magnet-clinical-solutions.com` URLs), new `website/sitemap.xml` (10 URLs with xhtml:link alternates) + `website/robots.txt`. Verified: all links/anchors/sitemap URLs resolve on disk (local http.server was sandbox-blocked); RO pages carry translated h1/blockquote/placeholders; beacon + pre-paint theme script intact in ro/. Build prints 44 "untranslated" strings — all intentional (emoji, numbers, names, brand, ICH–GCP).
+    14.4. Docs reconciled: SPEC.md §§1–8 rewritten where contracts changed (build step, ro/ tree, localStorage, form contract, build-time i18n algorithm, gotchas: never hand-edit ro/, re-run build after any copy change). NOT committed — awaiting user go-ahead (previous pending i18n.js one-liner from 13.1 is superseded/absorbed by the ro-dict.js move).
+    Review findings NOT acted on (user chose 1+4 only): fabricated-looking testimonials (legal/credibility risk), ICH GCP E6(R2) outdated → E6(R3), no favicon/OG tags, gallery is all placeholders, footer "Republic of Moldova" dead `#` link.
+
+15. Copy-rewrite inventory created — 2026-07-07
+    Context: user wants to replace the site's writing with copy his mom will actually write ("table of current and future content; once completed you will have that as input and make changes").
+    15.1. Created `CONTENT-REWRITE.md` at repo root (outside website/, never deploys): every visible string on all 5 pages + global nav/footer + browser titles + meta descriptions, numbered per page/section (0.x global … 5.x contact), each with the current text and a blank `New:` slot. Conventions defined in its header: blank = keep; `New: REMOVE` = delete element; EN or RO accepted (I translate the other); `New EN:`/`New RO:` for controlling both. 📷 marks image-placeholder labels; testimonials flagged ⚠️ as needing real quotes.
+    15.2. PENDING NEXT SESSION: when the user returns the filled file, apply it → edit EN pages → update `tools/ro-dict.js` keys (old EN key out, new pair in) → `python3 tools/build-ro.py` → verify → update SPEC/MEMORY. Everything from entries 14–15 is still UNCOMMITTED (push = live deploy; awaiting user go-ahead).
+
+16. Real Moldovan flag icon — 2026-07-07
+    Context: user spotted that `flag-md.png` was a tricolor with a crude blob, not the actual coat of arms. Replaced with the official flag: downloaded the public-domain `Flag_of_Moldova.svg` from Wikimedia Commons (1800×900, stripes + arms paths), rebuilt it at 3:2 to match the UK icon's format — equal 450-wide stripes, arms group kept 1:1 and recentered via `translate(-225,0)` — rasterized with rsvg-convert to the same 240×160 → `website/assets/flag-md.png` (9 KB). Verified legible at the 30×21 navbar size. Same path referenced by EN + RO pages, so no page edits/rebuild needed. Uncommitted like the rest.
+
+17. All visible email/phone mentions commented out site-wide — 2026-07-23
+    Context: user asked to "comment out any mention of the email or phone number within the website" (reason not stated).
+    17.1. Wrapped in `<!-- -->`: the footer Email/Phone `<li>`s on all 10 pages (5 EN + 5 RO) and the 📧/📞 `.contact-detail` blocks in `contact.html` + `ro/contact.html` (whole divs, so no orphan icons). Markup preserved in place — restore by deleting the comment wrappers.
+    17.2. `assets/main.js`: commented out the form-failure `.form-status` paragraph that rendered the email on-page; on failure the button now silently resets. `FORM_EMAIL` KEPT — it is the FormSubmit.co delivery endpoint; commenting it would kill the contact form, now the site's only contact channel. Email remains visible in JS source.
+    17.3. Re-ran `python3 tools/build-ro.py` — comments survive the RO build. Reconciled SPEC.md §4 (form contract + contact contract). Then committed & pushed the whole pending batch (entries 14–17) per user request — push to master = live Pages deploy.
+
 ---
 
 ## FILE STRUCTURE
@@ -132,21 +163,26 @@ mom's_company/
 ├── NOTES.md                — knowledge tree: goals, domain, content, decisions
 ├── SPEC.md                 — reproduction contract for the live website
 ├── wrangler.jsonc          — Cloudflare Workers config (assets.directory = website)
-├── website/                — THE LIVE SITE (warm-earth design, served by wrangler)
-│   ├── index.html          — Home page
+├── website/                — THE LIVE SITE (warm-earth design, GitHub Pages deploys this dir)
+│   ├── index.html          — Home page (EN pages are the copy source of truth)
 │   ├── about.html          — About page
 │   ├── services.html       — Services page (4 directions, anchors #audit/#training/#cro/#recruitment)
 │   ├── gallery.html        — Gallery page
-│   ├── contact.html        — Contact page (form + details)
+│   ├── contact.html        — Contact page (FormSubmit.co form + details + FAQ)
+│   ├── ro/                 — GENERATED Romanian mirror of the 5 pages (tools/build-ro.py; never hand-edit)
+│   ├── robots.txt          — allow-all + sitemap pointer
+│   ├── sitemap.xml         — 10 URLs (EN+RO) with hreflang alternates
 │   ├── assets/
 │   │   ├── theme.css       — all styles: tokens + light/dark themes + components, responsive
-│   │   ├── main.js         — navbar scroll, dark-mode toggle, mobile menu, reveal/counter observers
-│   │   ├── i18n.js         — EN/RO dictionary + runtime DOM text-walker translator
-│   │   ├── logo-gold.png   — full logo (warm-earth gold lockup); hosted for the email signature (navy logo.png deleted — was orphan, no page referenced it)
-│   │   ├── lm-mono-white.png — LM monogram mark used in navbar/footer
-│   │   ├── flag-uk.png     — EN language toggle flag
-│   │   └── flag-md.png     — RO (Moldova) language toggle flag
+│   │   ├── main.js         — navbar scroll, dark-mode toggle, mobile menu, reveal/counter observers, form AJAX submit
+│   │   ├── logo.png        — full logo lockup (navy)
+│   │   ├── lm-mono-white.png — LM monogram mark used in navbar/footer + email signature
+│   │   ├── flag-uk.png     — EN language-switch flag (now a link, not a JS button)
+│   │   └── flag-md.png     — RO (Moldova) language-switch flag
 │       (only the files above ship — see archive/ at repo root, kept OUT of the deploy)
+├── tools/                  — build tooling (outside website/ so it never deploys)
+│   ├── ro-dict.js          — EN→RO dictionary (moved from website/assets/i18n.js, dict-only now)
+│   └── build-ro.py         — pre-renders website/ro/*.html; run after any EN copy change
 ├── archive/                — superseded design work (in repo, NOT deployed)
 │   ├── old-site/           — v1.0 navy/gold site (pages + style.css/themes.css/theme-picker.js + images/)
 │   ├── suggestions/        — design explorations s2–s10
@@ -197,7 +233,7 @@ mom's_company/
 
 - Pages: 5 (Home, About, Services, Gallery, Contact)
 - Services documented: 4 directions
-- Languages: 2 (EN / RO) via i18n.js
+- Languages: 2 (EN at /, RO at /ro/) — static pages generated by tools/build-ro.py from tools/ro-dict.js
 - Themes: 2 (light / dark) via data-theme + mcs_theme
 - Live design palette (warm-earth): cream #faf6f1, forest #2c5f3c, gold #c4963a, text #2a1f18
 - Fonts: Lora (headings), Nunito Sans (body)

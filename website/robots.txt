@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://magnet-clinical-solutions.com/sitemap.xml

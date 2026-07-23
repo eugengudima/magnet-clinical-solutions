@@ -2,7 +2,7 @@
 
 # Location: /home/eugen/projects/mom's_company/SPEC.md
 # Rule: This file describes the CURRENT state — update IN PLACE, never append-only. Reconcile at the end of any session that changes a contract, value, or schema.
-# Last updated: 2026-06-25
+# Last updated: 2026-07-07
 
 This is the reproduction contract for the **live website** under `website/` (the
 "warm-earth" design). A fresh session given only this file should be able to rebuild a
@@ -14,8 +14,11 @@ and are out of scope here.
 
 ## 1. Stack & run
 
-- **Type:** fully static site. Vanilla HTML + CSS + JavaScript. No build step, no
-  framework, no bundler, no npm dependencies. No CDN JS (fonts are the only external load).
+- **Type:** fully static site. Vanilla HTML + CSS + JavaScript. No framework, no bundler,
+  no npm dependencies. No CDN JS (fonts are the only external load). ONE build step:
+  `python3 tools/build-ro.py` (stdlib only) pre-renders the Romanian pages
+  `website/ro/*.html` from the English pages + `tools/ro-dict.js`. The generated files are
+  committed; re-run the script after ANY English copy change.
 - **External fonts:** Google Fonts — `Lora` (ital 400/500/600/700, italic 400/500) and
   `Nunito Sans` (300/400/600/700/800), loaded via `<link>` with `preconnect` to
   `fonts.googleapis.com` / `fonts.gstatic.com`.
@@ -46,38 +49,43 @@ website/
 ├── about.html      About: founder story, mission/values, Moldova context, CTA
 ├── services.html   Services: 4 detail sections with anchors #audit #training #cro #recruitment
 ├── gallery.html    Gallery grid
-├── contact.html    Contact form + contact details
-│   (website/ holds ONLY shippable files — wrangler deploys this dir verbatim, so nothing
+├── contact.html    Contact form (FormSubmit.co) + contact details + FAQ
+├── ro/             GENERATED Romanian mirror of the 5 pages (by tools/build-ro.py — never hand-edit)
+├── robots.txt      allow-all + sitemap pointer
+├── sitemap.xml     all 10 URLs (EN + RO) with xhtml:link hreflang alternates
+│   (website/ holds ONLY shippable files — the deploy publishes this dir verbatim, so nothing
 │    non-public may live inside it; archived work stays at repo-root archive/)
 └── assets/
     ├── theme.css   ALL styling: :root tokens, [data-theme="dark"] overrides, base, components, responsive
-    ├── main.js     UI behaviour: navbar scroll state, dark-mode toggle, mobile menu, reveal/timeline/counter observers
-    ├── i18n.js     Runtime EN→RO translation (DOM text-node walker + dictionary)
+    ├── main.js     UI behaviour: navbar scroll state, dark-mode toggle, mobile menu, reveal/timeline/counter observers, contact-form AJAX submit
     ├── logo.png            full logo lockup (navy)
     ├── lm-mono-white.png   "LM" monogram mark — used in navbar + footer wordmark (and the email signature lockup)
     ├── flag-uk.png         English language-toggle flag
     └── flag-md.png         Moldova/Romanian language-toggle flag
+tools/
+├── ro-dict.js      EN→RO dictionary (`var RO = {...}`, exact-trimmed-English keys) — BUILD-TIME ONLY, not loaded in the browser
+└── build-ro.py     Pre-renders website/ro/*.html from the EN pages + ro-dict.js (see §5)
 ```
 
 Every page is self-contained HTML that links `assets/theme.css` in `<head>` and loads
-`assets/i18n.js` then `assets/main.js` at end of `<body>`. There is no shared HTML
-include mechanism — navbar and footer markup are duplicated per page (keep them in sync
-manually).
+`assets/main.js` at end of `<body>` (RO pages use `../assets/...`). There is no shared
+HTML include mechanism — navbar and footer markup are duplicated per page (keep them in
+sync manually, then re-run the RO build).
 
 **Control flow on load:** `<head>` runs a tiny inline script that reads
 `localStorage.mcs_theme` and sets `data-theme="dark"` before paint (prevents flash).
-After DOM ready: `i18n.js init()` snapshots text and applies the saved language;
-`main.js` wires up scroll/toggle/menu and starts IntersectionObservers.
+After DOM ready `main.js` wires up scroll/toggle/menu/form and starts
+IntersectionObservers. Language is chosen by URL (`/` = EN, `/ro/` = RO), not by script.
 
 ## 3. Persisted state (localStorage schema)
 
 | Key         | Values            | Meaning                                    | Written by |
 |-------------|-------------------|--------------------------------------------|------------|
 | `mcs_theme` | `"dark"`/`"light"`| colour theme; `dark` ⇒ `<html data-theme="dark">` | inline head script (read) + main.js (write) |
-| `mcs_lang`  | `"en"`/`"ro"`     | active language; `ro` ⇒ Romanian applied   | i18n.js    |
 
-No cookies, no backend, no other persistence. The contact form does not POST anywhere
-(client-only; success handled in JS).
+No cookies, no backend, no other persistence. (`mcs_lang` is retired — language is now
+per-URL via the static `/ro/` pages; a stale `mcs_lang` key in old visitors' storage is
+simply ignored.)
 
 ## 4. Interfaces & contracts
 
@@ -89,11 +97,23 @@ No cookies, no backend, no other persistence. The contact form does not POST any
   - `.reveal` — scroll-in reveal; receives `.in` when intersecting (or immediately if no IO).
   - `.tl-item` — timeline reveal (same pattern).
   - `.stat-number[data-count]` — animated count-up to the integer in `data-count`.
-  - `.lang-btn[data-lang="en|ro"]` — language switch buttons; get `.active` + `aria-pressed`.
-  - `.lang-switch` — its subtree is excluded from translation.
-- **Global JS API:** `window.mcsTranslate(str)` → returns the RO string if RO active and a
-  dictionary entry exists, else `str` (used for dynamically created text, e.g. form
-  success messages). `window.__mcsLang` holds the active lang code.
+  - `.lang-btn[data-lang="en|ro"]` — language switch: plain `<a>` links (EN page links to
+    `ro/<page>`, RO page back to `../<page>`); the current language's link carries `.active`.
+    `data-lang` is what `build-ro.py` keys on to flip hrefs/active — keep it.
+  - `.contact-form form` — main.js intercepts submit (see form contract below).
+- **Contact form contract (FormSubmit.co):** `main.js` POSTs `FormData` to
+  `https://formsubmit.co/ajax/lina.gudima@magnet-clinical-solutions.com` with
+  `Accept: application/json`. Success = JSON `success === "true"` → button shows
+  "Message Sent ✓" / "Mesaj trimis ✓" (picked via `document.documentElement.lang`) and the
+  form resets; any failure → button silently resets (the inline `.form-status` mailto
+  fallback is COMMENTED OUT in main.js since 2026-07-23 — it displayed the email on-page;
+  uncomment it if the contact info goes public again). Hidden inputs in `contact.html`
+  (and its RO mirror): `_subject`
+  ("Website enquiry — Magnet Clinical Solutions"), `_template=table`, `_captcha=false`,
+  and a `_honey` honeypot (`display:none`). The FormSubmit account is activated by
+  clicking the link in the activation email sent to the target address on first
+  submission (done 2026-07-07); if the target email ever changes, update `FORM_EMAIL` in
+  main.js + the hidden fields, and re-activate.
 - **Analytics:** Cloudflare Web Analytics beacon on every page, immediately before `</body>`
   (after `assets/main.js`): `<script defer src='https://static.cloudflareinsights.com/beacon.min.js'
   data-cf-beacon='{"token": "fc06107ae3114177bbcc1b9be8e26094"}'></script>`. Manual/JS-beacon
@@ -102,28 +122,41 @@ No cookies, no backend, no other persistence. The contact form does not POST any
   Analytics → Web Analytics.
 - **Contact contract:** the contact email is `lina.gudima@magnet-clinical-solutions.com`
   (matches the email signature + working M365 admin UPN), linked as a plain `mailto:`. The
-  phone is `+373 69 607 851`, linked as `tel:+37369607851`. Both appear in every page footer
-  (order: Email · Phone · Location) and in `contact.html`'s main contact block. (Do NOT
+  phone is `+373 69 607 851`, linked as `tel:+37369607851`. **As of 2026-07-23 every visible
+  email/phone mention is COMMENTED OUT** (`<!-- -->` around the footer `<li>`s on all 10
+  pages and around the Email/Phone `.contact-detail` blocks in both contact pages; the
+  markup is preserved in place — remove the comment wrappers to restore). `FORM_EMAIL` in
+  main.js still holds the address as the FormSubmit delivery endpoint. When visible: footer
+  order Email · Phone · Location, plus `contact.html`'s main contact block. (Do NOT
   reintroduce Cloudflare `/cdn-cgi/l/email-protection` obfuscation or `__cf_email__` spans —
   these were stripped during integration and the decode script removed. The old
   `info@magnetclinical.md` address is retired site-wide.)
 
-## 5. i18n algorithm (re-implementable detail)
+## 5. i18n (build-time pre-render — re-implementable detail)
 
-- `i18n.js` holds one object `RO = { "<exact trimmed English>": "<Romanian>", ... }`,
-  keyed by the trimmed English source text (covers nav, all section copy, form
-  placeholders, and the per-page `<title>`).
-- `collect()` runs once: a `TreeWalker(SHOW_TEXT)` over `document.body` snapshots every
-  non-empty text node, skipping `SCRIPT/STYLE/NOSCRIPT` and anything inside `.lang-switch`.
-  Separately snapshots all `[placeholder]` attributes and `document.title`.
-- `applyLang(lang)`: for `ro`, replaces each snapshot node's value with its dictionary
-  match (preserving surrounding whitespace by splicing at the trimmed key's offset);
-  for `en`, restores the original snapshot. Also swaps placeholders and `<title>`, sets
-  `document.documentElement.lang`, updates `.lang-btn` active/aria state, persists
-  `mcs_lang`. Missing keys fall back to English (graceful).
-- Init reads `localStorage.mcs_lang` (default `en`) and applies it; buttons call
-  `applyLang(data-lang)` on click. Adding a new translatable string = add its English→RO
-  pair to `RO`.
+Romanian is served as static pages under `/ro/` so search engines index it
+(client-side-only translation was invisible to crawlers). English pages are the single
+source of truth; `tools/build-ro.py` generates the RO mirror.
+
+- `tools/ro-dict.js` holds one object `RO = { "<exact trimmed English>": "<Romanian>", ... }`,
+  keyed by the trimmed English source text (covers nav, all section copy, meta
+  descriptions, form placeholders, and the per-page `<title>`). It is parsed by the build
+  script (comments stripped, body `json.loads`-ed) — keep it JSON-compatible: double-quoted
+  strings, no trailing comma on the last entry, `/* ... */` comments only.
+- `build-ro.py` (Python stdlib `html.parser`) streams each EN page and rewrites:
+  text nodes + `<title>` + `placeholder` + `meta[name=description]` translated by
+  exact-trimmed-key lookup (whitespace preserved, missing keys stay English and are listed
+  on stderr); `<html lang="ro">`; `rel=canonical` → the `/ro/` URL; `src`/`href`
+  beginning `assets/` → `../assets/`; the two `a.lang-btn[data-lang]` links flipped
+  (EN → `../<page>`, RO → self + `.active`). `<script>`/`<style>` content passes through
+  raw. Relative page links are NOT rewritten — `ro/about.html` linking `services.html`
+  correctly resolves inside `ro/`.
+- **SEO plumbing:** every page (EN and RO) carries `rel=canonical` (self) plus three
+  `rel=alternate` links: `hreflang="en"`, `hreflang="ro"`, `x-default` (= EN), using
+  absolute `https://magnet-clinical-solutions.com` URLs. `sitemap.xml` mirrors the same
+  pairs with `xhtml:link` alternates; `robots.txt` points at it.
+- Workflow for ANY visible copy change: edit the EN page → add/update the pair in
+  `tools/ro-dict.js` → `python3 tools/build-ro.py` → commit both EN + generated `ro/` files.
 
 ## 6. Design tokens (theme.css `:root`)
 
@@ -154,7 +187,8 @@ the v1.0 site (~900px / ~640px).
   `#recruitment` Patient Recruitment. (Domain detail in NOTES.md.)
 - Company: **Magnet Clinical Solutions**, clinical research, **Republic of Moldova**, B2B.
 - Footer brand wordmark uses the `lm-mono-white.png` mark + "Magnet Clinical Solutions".
-- Language switch (EN/RO flags) lives in the navbar; RO targets the Moldova market.
+- Language switch (EN/RO flag links) lives in the navbar; RO pages live at `/ro/` and
+  target the Moldova market.
 
 ## 8. Non-obvious behaviours / gotchas
 
@@ -165,4 +199,10 @@ the v1.0 site (~900px / ~640px).
 - The HTML was originally a Cloudflare export. Any re-export from that source will
   reintroduce `/cdn-cgi/...` email obfuscation and a `data-cfasync` decode script — both
   must be stripped again (see §4 email contract).
-- Navbar/footer are copy-pasted per page; a change to one must be propagated to all five.
+- Navbar/footer are copy-pasted per page; a change to one must be propagated to all five —
+  then re-run `python3 tools/build-ro.py` so the `ro/` mirror picks it up.
+- `website/ro/*.html` are generated artifacts. Never hand-edit them; they are overwritten
+  by the next build. Fix the EN page or the dictionary instead.
+- Until the FormSubmit activation link is clicked, the AJAX endpoint returns
+  `success:"false"` and the form shows the mailto fallback — safe failure mode, but the
+  form only delivers after activation.

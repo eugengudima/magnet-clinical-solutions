@@ -107,21 +107,56 @@
     });
   });
 
-  /* ---- Contact form fake-submit ---- */
+  /* ---- Contact form (FormSubmit.co AJAX) ---- */
   var form = document.querySelector('.contact-form form');
   if (form) {
+    var isRo = document.documentElement.lang === 'ro';
+    var FORM_MSG = {
+      sending: isRo ? 'Se trimite…' : 'Sending…',
+      sent: isRo ? 'Mesaj trimis ✓' : 'Message Sent ✓',
+      fail: isRo ? 'Trimiterea a eșuat — scrieți-ne direct la' : 'Sending failed — please email us directly at'
+    };
+    var FORM_EMAIL = 'lina.gudima@magnet-clinical-solutions.com';
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var btn = form.querySelector('[type=submit]');
-      if (!btn) return;
+      if (!btn || btn.disabled) return;
       var orig = btn.textContent;
-      btn.textContent = (window.mcsTranslate ? window.mcsTranslate('Message Sent ✓') : 'Message Sent ✓');
+      var status = form.querySelector('.form-status');
+      if (status) status.remove();
       btn.disabled = true;
-      btn.style.background = 'var(--forest-light)';
-      setTimeout(function () {
-        btn.textContent = orig; btn.disabled = false; btn.style.background = '';
+      btn.textContent = FORM_MSG.sending;
+      fetch('https://formsubmit.co/ajax/' + FORM_EMAIL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      }).then(function (r) {
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        if (!data || String(data.success) !== 'true') throw new Error('rejected');
+        btn.textContent = FORM_MSG.sent;
+        btn.style.background = 'var(--forest-light)';
         form.reset();
-      }, 3200);
+        setTimeout(function () {
+          btn.textContent = orig; btn.disabled = false; btn.style.background = '';
+        }, 3200);
+      }).catch(function () {
+        btn.textContent = orig;
+        btn.disabled = false;
+        // Commented out: failure message displayed the contact email on-page.
+        // var p = document.createElement('p');
+        // p.className = 'form-status';
+        // p.style.marginTop = '0.8rem';
+        // p.appendChild(document.createTextNode(FORM_MSG.fail + ' '));
+        // var a = document.createElement('a');
+        // a.href = 'mailto:' + FORM_EMAIL;
+        // a.textContent = FORM_EMAIL;
+        // a.style.color = 'var(--forest)';
+        // a.style.fontWeight = '600';
+        // p.appendChild(a);
+        // form.appendChild(p);
+      });
     });
   }
 })();
